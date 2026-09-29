@@ -153,7 +153,7 @@ const copyMap = {
     homeHint: "不是所有坑都要立刻填完，先走一步，坑会自己变少。",
     open: "进入",
     boardTitle: "项目",
-    boardDesc: "查看进度、管理任务、调整顺序，把注意力留给真正重要的事情。",
+    boardDesc: "项目页用于推进当前项目：查看进度、管理任务、调整顺序，把注意力留给真正重要的事情。",
     ideaTitle: "随手记",
     ideaDesc: "想到什么就记下来，先保护前额叶。",
     nowTitle: "现在就做",
@@ -187,17 +187,25 @@ const copyMap = {
     questLog: "任务清单",
     questLogDesc: "点一下圆圈完成任务，描述可以直接编辑。已完成任务会自动沉到底部。",
     projectLabel: "项目",
-    insightsWeeklyPlan: "统计分析与周计划",
+    insightsWeeklyPlan: "统计分析 & 日历视图",
     insightsWeeklyPlanDesc: "基于当前项目的任务状态，轻量看一眼推进情况。",
     totalTasks: "总任务",
     completedTasks: "已完成",
     inProgressTasks: "进行中",
     notStartedTasks: "待开始",
     completionRate: "完成比例",
-    weeklyPlan: "周计划",
+    completedTrend: "完成趋势（7天）",
+    thisWeek: "本周视图",
+    weeklyPlan: "本周视图",
     weeklyPlanEmpty: "在任务清单里点“日期”后，这里会显示你的本周安排。",
+    scheduledTasks: "个任务",
+    restDay: "休息",
+    prevWeek: "上一周",
+    nextWeek: "下一周",
+    progressCleared: "已推进",
     taskDate: "日期",
     noTaskDate: "日期",
+    scheduleDate: "安排日期",
     clearDate: "清除日期",
     editTaskMeta: "编辑",
     rescue: "卡住",
@@ -218,7 +226,7 @@ const copyMap = {
     projectHint: "切换 / 新增 / 删除项目都放在这里。卡住的项目自动置顶，已暂停的项目自动沉底，也可以拖动排序。",
     addProjectPlaceholder: "新增项目名称",
     projectType: "项目类型",
-    projectLevel: "Lv.",
+    projectLevel: "复杂度",
     filters: { active: "进行中", all: "全部", boss: "里程碑", sealed: "已暂停" },
     readyTasks: "可开始任务",
     streakDays: "连续行动",
@@ -263,10 +271,10 @@ const copyMap = {
     restoreProjectHint: "删除的项目会完整保留，60 天内可恢复。",
     restoreIdeaHint: "删除的想法会保留 60 天，恢复后回到随手记。",
     dungeonHint: "Project = 一个完整项目，也就是一条独立推进线。",
-    levelHint: "Lv. 表示项目难度或推进复杂度，可以在新增项目时设定。",
+    levelHint: "复杂度表示项目的推进难度，可在新增项目时设定。",
     sealedBadgeHint: "paused = 已暂停，暂时停靠，不进入默认推进流。",
     manageProjects: "扩展管理",
-    manageProjectsDesc: "在这里集中编辑项目命名、类型、Lv. 和备注，也可以按标签筛选查看。",
+    manageProjectsDesc: "在这里集中编辑项目命名、类型、复杂度和备注，也可以按标签筛选查看。",
     projectNote: "项目备注",
     allProjectTypes: "全部类型",
     ideaViewList: "列表",
@@ -312,7 +320,7 @@ const copyMap = {
     homeHint: "Not every pit needs to be filled today. Take one step, and the list gets lighter.",
     open: "Open",
     boardTitle: "Projects",
-    boardDesc: "Review progress, manage tasks, reorder work, and keep attention on what matters most.",
+    boardDesc: "Use this page to review progress, manage tasks, reorder work, and focus on what matters most.",
     ideaTitle: "Quick Notes",
     ideaDesc: "Capture whatever pops up, and protect your prefrontal cortex.",
     nowTitle: "Do It Now",
@@ -346,17 +354,25 @@ const copyMap = {
     questLog: "Task List",
     questLogDesc: "Tap the circle to complete. Descriptions are editable. Completed tasks move to the bottom.",
     projectLabel: "Project",
-    insightsWeeklyPlan: "Insights & Weekly Plan",
+    insightsWeeklyPlan: "Insights & Calendar",
     insightsWeeklyPlanDesc: "A light read on progress based on the current project's task state.",
     totalTasks: "Total tasks",
     completedTasks: "Completed",
     inProgressTasks: "In progress",
     notStartedTasks: "Not started",
     completionRate: "Completion rate",
-    weeklyPlan: "Weekly plan",
+    completedTrend: "Completed Trend (7 days)",
+    thisWeek: "This Week",
+    weeklyPlan: "This Week",
     weeklyPlanEmpty: "Click Date in the task list to see your weekly plan here.",
+    scheduledTasks: "tasks",
+    restDay: "Rest",
+    prevWeek: "Previous week",
+    nextWeek: "Next week",
+    progressCleared: "cleared",
     taskDate: "Date",
     noTaskDate: "Date",
+    scheduleDate: "Schedule date",
     clearDate: "Clear date",
     editTaskMeta: "Edit",
     rescue: "Blocked",
@@ -377,7 +393,7 @@ const copyMap = {
     projectHint: "Switch, create, delete, and reorder projects here. Blocked items rise, paused items sink.",
     addProjectPlaceholder: "New project name",
     projectType: "Project type",
-    projectLevel: "Lv.",
+    projectLevel: "Complexity",
     filters: { active: "Active", all: "All", boss: "Milestones", sealed: "Paused" },
     readyTasks: "Ready tasks",
     streakDays: "Action streak",
@@ -422,10 +438,10 @@ const copyMap = {
     restoreProjectHint: "Deleted projects are kept for 60 days.",
     restoreIdeaHint: "Deleted ideas are kept for 60 days and return to Quick Notes when restored.",
     dungeonHint: "Project = a standalone project lane.",
-    levelHint: "Lv. means difficulty or complexity. Set it when creating a project.",
+    levelHint: "Complexity indicates the difficulty of a project. Set it when creating a project.",
     sealedBadgeHint: "paused = parked for now, hidden from the default push flow.",
     manageProjects: "Manage",
-    manageProjectsDesc: "Edit project name, type, Lv. and notes in one place. Filter by tag/category.",
+    manageProjectsDesc: "Edit project name, type, complexity and notes in one place. Filter by tag/category.",
     projectNote: "Project note",
     allProjectTypes: "All types",
     ideaViewList: "List",
@@ -536,7 +552,7 @@ function nextTask(project) {
 }
 
 function taskDateValue(task) {
-  const value = task.dueDate || task.completedAt || task.createdAt;
+  const value = task.scheduledDate || task.completedAt || task.createdAt;
   if (!value) return null;
   const date = new Date(value);
   return Number.isNaN(date.getTime()) ? null : date;
@@ -547,7 +563,7 @@ function sameCalendarDay(a, b) {
 }
 
 function weeklyTaskBuckets(tasks) {
-  const datedTasks = tasks.map((task) => ({ task, date: taskDateValue(task) })).filter((item) => item.date);
+  const datedTasks = tasks.map((task) => ({ task, date: task.scheduledDate ? taskDateValue(task) : null })).filter((item) => item.date);
   if (!datedTasks.length) return [];
   const today = new Date();
   today.setHours(0, 0, 0, 0);
@@ -558,6 +574,52 @@ function weeklyTaskBuckets(tasks) {
     date.setDate(start.getDate() + index);
     const count = datedTasks.filter((item) => sameCalendarDay(item.date, date)).length;
     return { label: `${date.getMonth() + 1}/${date.getDate()}`, count };
+  });
+}
+
+function startOfWeek(offset = 0) {
+  const date = new Date();
+  date.setHours(0, 0, 0, 0);
+  date.setDate(date.getDate() - date.getDay() + offset * 7);
+  return date;
+}
+
+function weekDays(offset = 0) {
+  const start = startOfWeek(offset);
+  return Array.from({ length: 7 }, (_, index) => {
+    const date = new Date(start);
+    date.setDate(start.getDate() + index);
+    return date;
+  });
+}
+
+function recentCompletedTrend(tasks) {
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  const start = new Date(today);
+  start.setDate(today.getDate() - 6);
+  return Array.from({ length: 7 }, (_, index) => {
+    const date = new Date(start);
+    date.setDate(start.getDate() + index);
+    const count = tasks.filter((task) => {
+      if (!task.completedAt) return false;
+      const completed = new Date(task.completedAt);
+      if (Number.isNaN(completed.getTime())) return false;
+      return sameCalendarDay(completed, date);
+    }).length;
+    return { date, label: `${date.getMonth() + 1}/${date.getDate()}`, count };
+  });
+}
+
+function scheduledCountsForWeek(tasks, offset = 0) {
+  return weekDays(offset).map((date) => {
+    const count = tasks.filter((task) => {
+      if (!task.scheduledDate) return false;
+      const scheduled = new Date(task.scheduledDate);
+      if (Number.isNaN(scheduled.getTime())) return false;
+      return sameCalendarDay(scheduled, date);
+    }).length;
+    return { date, label: `${date.getMonth() + 1}/${date.getDate()}`, count };
   });
 }
 
@@ -646,11 +708,11 @@ function normalizeIdeas(value) {
   return value
     .map((item, index) => {
       if (typeof item === "string") {
-        return { id: `legacy-idea-${index}`, text: normalizeVisibleText(item), category: "灵感", createdAt: new Date().toISOString(), deletedAt: null };
+        return { id: `legacy-idea-${index}`, text: item, category: "灵感", createdAt: new Date().toISOString(), deletedAt: null };
       }
       return {
         id: item.id || `idea-${index}`,
-        text: normalizeVisibleText(String(item.text || "")),
+        text: String(item.text || ""),
         category: item.category || "灵感",
         createdAt: item.createdAt || new Date().toISOString(),
         deletedAt: item.deletedAt || null,
@@ -665,8 +727,8 @@ function normalizeProjects(value) {
     .map((project, index) => ({
       id: project.id || `project-${index}`,
       icon: normalizeProjectIcon(project.icon, index),
-      title: normalizeVisibleText(project.title || "Untitled"),
-      subtitle: normalizeVisibleText(project.subtitle || ""),
+      title: project.title || "Untitled",
+      subtitle: project.subtitle || "",
       note: project.note || "",
       status: normalizeVisibleText(project.status || ""),
       level: Number(project.level || 1),
@@ -698,8 +760,8 @@ function normalizeProjects(value) {
               focusMode: Boolean(task.focusMode),
               focusAction: String(task.focusAction || "").replace("。只做开头，不求完成。", "").replace(". Just begin, no need to finish.", ""),
               ...(task.createdAt ? { createdAt: task.createdAt } : {}),
-              ...(task.completedAt ? { completedAt: task.completedAt } : {}),
-              ...(task.dueDate ? { dueDate: task.dueDate } : {}),
+              completedAt: task.completedAt || null,
+              scheduledDate: task.scheduledDate || task.dueDate || null,
             }))
             .filter((task) => !isTrashExpired(task))
         : [],
@@ -799,7 +861,7 @@ function PixelBadge({ children, tone = "neutral", ...props }) {
 }
 
 function PixelIcon({ children, className = "" }) {
-  return <div className={cx("grid h-14 w-14 shrink-0 place-items-center rounded-[14px] text-[28px] ring-1 ring-black/[0.04]", className)}><span style={{ imageRendering: "pixelated" }}>{children}</span></div>;
+  return <div className={cx("grid h-14 w-14 shrink-0 place-items-center rounded-[14px] text-[28px] ring-1 ring-black/[0.04]", className)}><span>{typeof children === "string" ? <Folder className="h-6 w-6 text-[#6E6E73]" /> : children}</span></div>;
 }
 
 function EmptyState({ children }) {
@@ -903,6 +965,7 @@ export default function ADHDQuestBoardPrototype() {
   const [newTaskAction, setNewTaskAction] = useState("");
   const [newWeight, setNewWeight] = useState(10);
   const [newTaskType, setNewTaskType] = useState("普通任务");
+  const [newTaskSchedule, setNewTaskSchedule] = useState("");
   const [batchText, setBatchText] = useState("");
   const [newProjectTitle, setNewProjectTitle] = useState("");
   const [newProjectCategory, setNewProjectCategory] = useState("个人项目");
@@ -917,6 +980,7 @@ export default function ADHDQuestBoardPrototype() {
   const [editingTaskMeta, setEditingTaskMeta] = useState(null);
   const [draftTitle, setDraftTitle] = useState("");
   const [todayStepIndex, setTodayStepIndex] = useState(0);
+  const [weekOffset, setWeekOffset] = useState(0);
 
   const c = copyMap[lang];
   const activeProjects = useMemo(() => projects.filter((project) => !project.deletedAt), [projects]);
@@ -954,11 +1018,10 @@ export default function ADHDQuestBoardPrototype() {
   }, [activeIdeas, ideaSearch, ideaCategoryFilter]);
   const activityStreak = useMemo(() => streakFromActivityDays(activityDays), [activityDays]);
   const selectedTasks = useMemo(() => (selected ? activeTasksOf(selected) : []), [selected]);
-  const selectedNextTask = selected ? nextTask(selected) : null;
   const selectedTaskStats = useMemo(() => {
     const completed = selectedTasks.filter((task) => task.done).length;
-    const inProgress = selectedTasks.filter((task) => !task.done && (task.focusMode || task.id === selectedNextTask?.id)).length;
-    const notStarted = selectedTasks.filter((task) => !task.done && !task.focusMode && task.id !== selectedNextTask?.id).length;
+    const inProgress = selectedTasks.filter((task) => !task.done && task.focusMode).length;
+    const notStarted = selectedTasks.filter((task) => !task.done && !task.focusMode).length;
     return {
       total: selectedTasks.length,
       completed,
@@ -966,8 +1029,9 @@ export default function ADHDQuestBoardPrototype() {
       notStarted,
       completionRate: selectedTasks.length ? Math.round((completed / selectedTasks.length) * 100) : 0,
     };
-  }, [selectedTasks, selectedNextTask]);
-  const selectedWeeklyBuckets = useMemo(() => weeklyTaskBuckets(selectedTasks), [selectedTasks]);
+  }, [selectedTasks]);
+  const selectedCompletedTrend = useMemo(() => recentCompletedTrend(selectedTasks), [selectedTasks]);
+  const selectedWeekDays = useMemo(() => scheduledCountsForWeek(selectedTasks, weekOffset), [selectedTasks, weekOffset]);
 
   useEffect(() => saveToStorage(PROJECTS_KEY, projects), [projects]);
   useEffect(() => saveToStorage(IDEAS_KEY, ideas), [ideas]);
@@ -1034,9 +1098,18 @@ export default function ADHDQuestBoardPrototype() {
     const targetProject = activeProjects.find((project) => project.id === projectId);
     const targetTask = targetProject?.tasks?.find((task) => task.id === taskId);
     if (targetProject && !targetProject.paused && targetTask && !targetTask.done) markActivityToday();
+    const completedAt = new Date().toISOString();
     setProjects((prev) => prev.map((project) => {
       if (project.id !== projectId || project.paused) return project;
-      return { ...project, status: lang === "zh" ? "刚刚推进" : "Just advanced", tasks: project.tasks.map((task) => (task.id === taskId ? { ...task, done: !task.done } : task)) };
+      return {
+        ...project,
+        status: lang === "zh" ? "刚刚推进" : "Just advanced",
+        tasks: project.tasks.map((task) => (
+          task.id === taskId
+            ? { ...task, done: !task.done, completedAt: task.done ? null : completedAt }
+            : task
+        )),
+      };
     }));
   }
 
@@ -1114,13 +1187,14 @@ export default function ADHDQuestBoardPrototype() {
       if (project.id !== selected.id) return project;
       return {
         ...project,
-        tasks: [...project.tasks, { id: makeId("task"), title: value, weight, done: false, type: newTaskType, action: newTaskAction.trim() || (lang === "zh" ? "先把它缩成 5 分钟能开始的一步。" : "Shrink it into a step you can start in 5 minutes."), deletedAt: null, focusMode: false, focusAction: "" }],
+        tasks: [...project.tasks, { id: makeId("task"), title: value, weight, done: false, type: newTaskType, action: newTaskAction.trim() || (lang === "zh" ? "先把它缩成 5 分钟能开始的一步。" : "Shrink it into a step you can start in 5 minutes."), deletedAt: null, focusMode: false, focusAction: "", completedAt: null, scheduledDate: newTaskSchedule || null }],
       };
     }));
     setNewTask("");
     setNewTaskAction("");
     setNewWeight(10);
     setNewTaskType("普通任务");
+    setNewTaskSchedule("");
     setTaskModalOpen(false);
   }
 
@@ -1136,11 +1210,12 @@ export default function ADHDQuestBoardPrototype() {
         const action = (parts[1] || "").trim() || (lang === "zh" ? "先把它缩成 5 分钟能开始的一步。" : "Shrink it into a step you can start in 5 minutes.");
         const parsedWeight = Number(parts[2]);
         const type = (parts[3] || newTaskType).trim();
-        return { id: makeId("task"), title: title || (lang === "zh" ? "未命名任务" : "Untitled task"), weight: Number.isFinite(parsedWeight) && parsedWeight > 0 ? parsedWeight : Number(newWeight), done: false, type, action, deletedAt: null, focusMode: false, focusAction: "" };
+        return { id: makeId("task"), title: title || (lang === "zh" ? "未命名任务" : "Untitled task"), weight: Number.isFinite(parsedWeight) && parsedWeight > 0 ? parsedWeight : Number(newWeight), done: false, type, action, deletedAt: null, focusMode: false, focusAction: "", completedAt: null, scheduledDate: newTaskSchedule || null };
       });
       return { ...project, tasks: [...project.tasks, ...created] };
     }));
     setBatchText("");
+    setNewTaskSchedule("");
     setTaskModalOpen(false);
   }
 
@@ -1324,14 +1399,14 @@ export default function ADHDQuestBoardPrototype() {
 
   function renderProjectSwitcher() {
     return (
-      <Card className="p-6">
-        <div className="mb-6 flex items-center justify-between gap-3">
+      <Card className="p-4 sm:p-5">
+        <div className="mb-4 flex items-start justify-between gap-3">
           <div className="min-w-0">
             <div className="flex items-center gap-2">
-              <h3 className="text-[20px] font-semibold tracking-[-0.02em]">{c.project}</h3>
+              <h3 className="text-[20px] font-medium tracking-[-0.02em]">{c.project}</h3>
               <button type="button" onClick={() => setProjectManagerOpen(true)} className="rounded-full bg-[#F5F5F7] px-3 py-1.5 text-[12px] font-medium text-[#6E6E73] transition hover:bg-[#ECECEF] hover:text-[#1D1D1F] focus:outline-none focus:ring-4 focus:ring-black/10">{c.manageProjects}</button>
             </div>
-            <p className="mt-0.5 text-[12px] font-normal text-[#9A9AA0]">{c.projectHint}</p>
+            <p className="mt-1 text-[12px] font-normal leading-5 text-[#9A9AA0]">{c.projectHint}</p>
           </div>
           <BookOpen className="h-5 w-5 shrink-0 text-[#C7C7CC]" />
         </div>
@@ -1343,25 +1418,25 @@ export default function ADHDQuestBoardPrototype() {
           <div className="grid grid-cols-[1fr_96px] gap-2">
             <select value={newProjectCategory} onChange={(event) => setNewProjectCategory(event.target.value)} className="min-h-11 rounded-full border-0 bg-[#F5F5F7] px-4 text-[13px] font-medium text-[#6E6E73] outline-none focus:bg-white focus:ring-4 focus:ring-black/10" title={c.projectType}>{PROJECT_CATEGORIES.map((category) => <option key={category} value={category}>{labelFor(lang, "projectCategory", category)}</option>)}</select>
             <label className="flex min-h-11 items-center gap-1.5 rounded-full bg-[#F5F5F7] px-3 text-[13px] font-medium text-[#6E6E73] focus-within:bg-white focus-within:ring-4 focus-within:ring-black/10" title={c.projectLevel}>
-              <span>Lv.</span>
+              <span>{c.projectLevel}</span>
               <input type="number" min="1" max="99" value={newProjectLevel} onChange={(event) => setNewProjectLevel(Number(event.target.value) || 1)} className="min-w-0 flex-1 border-0 bg-transparent p-0 text-[13px] font-medium outline-none" />
             </label>
           </div>
         </div>
         {visibleProjects.length ? (
-          <div className="space-y-3">
+          <div className="max-h-[430px] space-y-2 overflow-y-auto pr-1">
             {visibleProjects.map((project) => {
               const p = progressOf(project);
               const active = project.id === selected?.id;
               const pt = tintMap[project.tint] || tintMap.blue;
               return (
-                <div key={project.id} draggable onDragStart={() => setDraggingProjectId(project.id)} onDragOver={(event) => event.preventDefault()} onDrop={() => { reorderProjectById(draggingProjectId, project.id); setDraggingProjectId(null); }} className={cx("flex items-center gap-2 rounded-[14px] p-2 transition", active ? `bg-white shadow-sm ring-4 ${pt.ring}` : "bg-[#F5F5F7] hover:bg-white")}>
+                <div key={project.id} draggable onDragStart={() => setDraggingProjectId(project.id)} onDragOver={(event) => event.preventDefault()} onDrop={() => { reorderProjectById(draggingProjectId, project.id); setDraggingProjectId(null); }} className={cx("flex items-center gap-2 rounded-[14px] p-2 transition", active ? `bg-white shadow-sm ring-2 ${pt.ring}` : "bg-[#F5F5F7] hover:bg-white")}>
                   <div className="grid h-8 w-5 shrink-0 cursor-grab place-items-center rounded-full text-[14px] text-[#C7C7CC] active:cursor-grabbing">⋮⋮</div>
-                  <button type="button" onClick={() => setSelectedId(project.id)} className="min-w-0 flex flex-1 items-center gap-3 rounded-[12px] p-2 text-left focus:outline-none focus:ring-4 focus:ring-black/10">
+                  <button type="button" onClick={() => setSelectedId(project.id)} className="min-w-0 flex flex-1 items-center gap-3 rounded-[12px] p-1.5 text-left focus:outline-none focus:ring-4 focus:ring-black/10">
                     <PixelIcon className={cx("h-11 w-11 rounded-xl text-xl", pt.bg)}>{project.icon}</PixelIcon>
                     <div className="min-w-0 flex-1">
-                      <div className="flex items-center gap-2"><div className="truncate text-[15px] font-semibold">{project.title}</div>{project.stuck && <PixelBadge tone="red"><CircleAlert className="h-3 w-3" /> {c.rescue}</PixelBadge>}{project.archived && <PixelBadge tone="green"><Archive className="h-3 w-3" /> {c.statusArchived}</PixelBadge>}{project.paused && !project.archived && <PixelBadge tone="neutral"><PauseCircle className="h-3 w-3" /> {c.statusSealed}</PixelBadge>}</div>
-                      <div className="mt-1 flex items-center gap-2 text-[12px] text-[#9A9AA0]"><span>{labelFor(lang, "projectCategory", project.category || "个人项目")}</span><span>Lv.{project.level}</span><span className="w-8 shrink-0 tabular-nums">{p}%</span><div className="h-1.5 flex-1 overflow-hidden rounded-full bg-[#E5E5EA]"><div className={cx("h-full rounded-full", pt.bar)} style={{ width: `${p}%` }} /></div></div>
+                      <div className="flex items-center gap-2"><div className="truncate text-[15px] font-medium">{project.title}</div>{project.stuck && <PixelBadge tone="red"><CircleAlert className="h-3 w-3" /> {c.rescue}</PixelBadge>}{project.archived && <PixelBadge tone="green"><Archive className="h-3 w-3" /> {c.statusArchived}</PixelBadge>}{project.paused && !project.archived && <PixelBadge tone="neutral"><PauseCircle className="h-3 w-3" /> {c.statusSealed}</PixelBadge>}</div>
+                      <div className="mt-1 flex items-center gap-2 text-[12px] text-[#9A9AA0]"><span className="truncate">{labelFor(lang, "projectCategory", project.category || "个人项目")}</span><span>{c.projectLevel} {project.level}</span><span className="w-8 shrink-0 tabular-nums">{p}%</span><div className="h-1.5 flex-1 overflow-hidden rounded-full bg-[#E5E5EA]"><div className={cx("h-full rounded-full", pt.bar)} style={{ width: `${p}%` }} /></div></div>
                       <div className="mt-0.5 truncate text-[12px] text-[#9A9AA0]">{project.note || project.status}</div>
                     </div>
                   </button>
@@ -1394,7 +1469,7 @@ export default function ADHDQuestBoardPrototype() {
                     <PixelIcon className={cx("h-11 w-11 rounded-xl text-xl", pt.bg)}>{project.icon}</PixelIcon>
                     <input value={project.title} onChange={(event) => updateProjectField(project.id, "title", event.target.value)} className="min-h-11 rounded-[14px] border-0 bg-white px-4 text-[14px] font-semibold outline-none focus:ring-4 focus:ring-black/10" />
                     <select value={project.category || "个人项目"} onChange={(event) => updateProjectField(project.id, "category", event.target.value)} className="min-h-11 rounded-[14px] border-0 bg-white px-3 text-[13px] font-medium text-[#6E6E73] outline-none focus:ring-4 focus:ring-black/10">{PROJECT_CATEGORIES.map((category) => <option key={category} value={category}>{labelFor(lang, "projectCategory", category)}</option>)}</select>
-                    <label className="flex min-h-11 items-center gap-1.5 rounded-[14px] bg-white px-3 text-[13px] font-medium text-[#6E6E73] focus-within:ring-4 focus-within:ring-black/10"><span>Lv.</span><input type="number" min="1" max="99" value={project.level} onChange={(event) => updateProjectField(project.id, "level", event.target.value)} className="min-w-0 flex-1 border-0 bg-transparent p-0 outline-none" /></label>
+                    <label className="flex min-h-11 items-center gap-1.5 rounded-[14px] bg-white px-3 text-[13px] font-medium text-[#6E6E73] focus-within:ring-4 focus-within:ring-black/10"><span>{c.projectLevel}</span><input type="number" min="1" max="99" value={project.level} onChange={(event) => updateProjectField(project.id, "level", event.target.value)} className="min-w-0 flex-1 border-0 bg-transparent p-0 outline-none" /></label>
                   </div>
                   <textarea value={project.note || ""} onChange={(event) => updateProjectField(project.id, "note", event.target.value)} placeholder={c.projectNote} rows={2} className="mt-3 w-full resize-none rounded-[14px] border-0 bg-white px-4 py-3 text-[13px] leading-5 text-[#6E6E73] outline-none focus:ring-4 focus:ring-black/10" />
                 </div>
@@ -1443,7 +1518,7 @@ export default function ADHDQuestBoardPrototype() {
         <button className="absolute inset-0 cursor-default" aria-label="close modal" onClick={() => setTaskModalOpen(false)} />
         <Card className="relative max-h-[90vh] w-full max-w-2xl overflow-y-auto p-4 sm:p-7">
           <div className="mb-5 flex items-start justify-between gap-4"><div><h3 className="text-[24px] font-semibold tracking-[-0.03em]">{c.addNode}</h3><p className="mt-1 text-[13px] leading-5 text-[#86868B]">{c.addNodeDesc}</p></div><button type="button" onClick={() => setTaskModalOpen(false)} className="grid h-11 w-11 shrink-0 place-items-center rounded-full bg-[#F5F5F7] text-[20px] text-[#86868B] transition hover:bg-[#ECECEF] hover:text-[#1D1D1F] focus:outline-none focus:ring-4 focus:ring-black/10" aria-label="close add task modal">x</button></div>
-          <div className="space-y-3"><input value={newTask} onChange={(event) => setNewTask(event.target.value)} placeholder={selected ? c.nodeNamePlaceholder : c.noProject} disabled={!selected} className="min-h-11 w-full rounded-[14px] border-0 bg-[#F5F5F7] px-4 text-[15px] outline-none transition placeholder:text-[#A1A1A6] focus:bg-white focus:ring-4 focus:ring-black/10 disabled:opacity-50" /><textarea value={newTaskAction} onChange={(event) => setNewTaskAction(event.target.value)} placeholder={c.nodeDescPlaceholder} disabled={!selected} rows={3} className="w-full resize-none rounded-[14px] border-0 bg-[#F5F5F7] px-4 py-3 text-[15px] leading-6 outline-none transition placeholder:text-[#A1A1A6] focus:bg-white focus:ring-4 focus:ring-black/10 disabled:opacity-50" /><div className="grid gap-3 sm:grid-cols-2"><label className="space-y-1"><span className="text-[12px] font-medium text-[#86868B]">{c.taskWeight}</span><select value={newWeight} onChange={(event) => setNewWeight(Number(event.target.value) || 10)} disabled={!selected} className="min-h-11 w-full rounded-[14px] border-0 bg-[#F5F5F7] px-4 text-[15px] font-medium outline-none focus:bg-white focus:ring-4 focus:ring-black/10 disabled:opacity-50">{TASK_WEIGHTS.map((weight) => <option key={weight} value={weight}>{weight}%</option>)}</select></label><label className="space-y-1"><span className="text-[12px] font-medium text-[#86868B]">{c.taskType}</span><select value={newTaskType} onChange={(event) => setNewTaskType(event.target.value)} disabled={!selected} className="min-h-11 w-full rounded-[14px] border-0 bg-[#F5F5F7] px-4 text-[15px] font-medium outline-none focus:bg-white focus:ring-4 focus:ring-black/10 disabled:opacity-50">{TASK_TYPES.map((type) => <option key={type} value={type}>{labelFor(lang, "taskType", type)}</option>)}</select></label></div><Button onClick={addTask} className={!selected ? "opacity-50" : ""}><Plus className="h-4 w-4" /> {c.add}</Button><div className="rounded-[16px] bg-[#F5F5F7] p-4"><div className="mb-2 text-[14px] font-medium text-[#1D1D1F]">{c.batchAdd}</div><p className="mb-3 text-[12px] leading-5 text-[#86868B]">{c.batchTip}</p><textarea value={batchText} onChange={(event) => setBatchText(event.target.value)} placeholder={c.batchPlaceholder} rows={5} className="w-full resize-none rounded-[14px] border-0 bg-white px-4 py-3 text-[14px] leading-6 outline-none transition placeholder:text-[#A1A1A6] focus:ring-4 focus:ring-black/10" /><Button onClick={addBatchTasks} variant="light" className="mt-3"><Plus className="h-4 w-4" /> {c.batchAdd}</Button></div></div>
+          <div className="space-y-3"><input value={newTask} onChange={(event) => setNewTask(event.target.value)} placeholder={selected ? c.nodeNamePlaceholder : c.noProject} disabled={!selected} className="min-h-11 w-full rounded-[14px] border-0 bg-[#F5F5F7] px-4 text-[15px] outline-none transition placeholder:text-[#A1A1A6] focus:bg-white focus:ring-4 focus:ring-black/10 disabled:opacity-50" /><textarea value={newTaskAction} onChange={(event) => setNewTaskAction(event.target.value)} placeholder={c.nodeDescPlaceholder} disabled={!selected} rows={3} className="w-full resize-none rounded-[14px] border-0 bg-[#F5F5F7] px-4 py-3 text-[15px] leading-6 outline-none transition placeholder:text-[#A1A1A6] focus:bg-white focus:ring-4 focus:ring-black/10 disabled:opacity-50" /><div className="grid gap-3 sm:grid-cols-3"><label className="space-y-1"><span className="text-[12px] font-medium text-[#86868B]">{c.taskWeight}</span><select value={newWeight} onChange={(event) => setNewWeight(Number(event.target.value) || 10)} disabled={!selected} className="min-h-11 w-full rounded-[14px] border-0 bg-[#F5F5F7] px-4 text-[15px] font-medium outline-none focus:bg-white focus:ring-4 focus:ring-black/10 disabled:opacity-50">{TASK_WEIGHTS.map((weight) => <option key={weight} value={weight}>{weight}%</option>)}</select></label><label className="space-y-1"><span className="text-[12px] font-medium text-[#86868B]">{c.taskType}</span><select value={newTaskType} onChange={(event) => setNewTaskType(event.target.value)} disabled={!selected} className="min-h-11 w-full rounded-[14px] border-0 bg-[#F5F5F7] px-4 text-[15px] font-medium outline-none focus:bg-white focus:ring-4 focus:ring-black/10 disabled:opacity-50">{TASK_TYPES.map((type) => <option key={type} value={type}>{labelFor(lang, "taskType", type)}</option>)}</select></label><label className="space-y-1"><span className="text-[12px] font-medium text-[#86868B]">{c.scheduleDate}</span><input type="date" value={newTaskSchedule} onChange={(event) => setNewTaskSchedule(event.target.value)} disabled={!selected} className="min-h-11 w-full rounded-[14px] border-0 bg-[#F5F5F7] px-4 text-[14px] font-medium text-[#6E6E73] outline-none focus:bg-white focus:ring-4 focus:ring-black/10 disabled:opacity-50" /></label></div><Button onClick={addTask} className={!selected ? "opacity-50" : ""}><Plus className="h-4 w-4" /> {c.add}</Button><div className="rounded-[16px] bg-[#F5F5F7] p-4"><div className="mb-2 text-[14px] font-medium text-[#1D1D1F]">{c.batchAdd}</div><p className="mb-3 text-[12px] leading-5 text-[#86868B]">{c.batchTip}</p><textarea value={batchText} onChange={(event) => setBatchText(event.target.value)} placeholder={c.batchPlaceholder} rows={5} className="w-full resize-none rounded-[14px] border-0 bg-white px-4 py-3 text-[14px] leading-6 outline-none transition placeholder:text-[#A1A1A6] focus:ring-4 focus:ring-black/10" /><Button onClick={addBatchTasks} variant="light" className="mt-3"><Plus className="h-4 w-4" /> {c.batchAdd}</Button></div></div>
         </Card>
       </div>
     );
@@ -1451,15 +1526,15 @@ export default function ADHDQuestBoardPrototype() {
 
   function renderProjectOverviewCard() {
     return (
-      <Card className="p-5 sm:p-7">
+      <Card className="p-5">
         {selected ? (
           <>
-            <div className="grid gap-5 sm:grid-cols-[auto_minmax(0,1fr)] lg:grid-cols-[auto_minmax(0,1fr)_auto] lg:items-start">
+            <div className="grid gap-4 sm:grid-cols-[auto_minmax(0,1fr)] lg:grid-cols-[auto_minmax(0,1fr)_auto] lg:items-start">
               <PixelIcon className={tint.bg}>{selected.icon}</PixelIcon>
               <div className="min-w-0">
-                <div className="mb-3 flex flex-wrap items-center gap-2">
+                <div className="mb-2 flex flex-wrap items-center gap-2">
                   <PixelBadge tone="blue" title={c.dungeonHint}>{c.projectLabel}</PixelBadge>
-                  <PixelBadge tone="gold" title={c.levelHint}>Lv.{selected.level}</PixelBadge>
+                  <PixelBadge tone="gold" title={c.levelHint}>{c.projectLevel} {selected.level}</PixelBadge>
                   {selected.archived && <PixelBadge tone="green" title={c.archiveHint}>{c.statusArchived}</PixelBadge>}
                   {selected.paused && !selected.archived && <PixelBadge tone="neutral" title={c.sealedBadgeHint}>{c.statusSealed}</PixelBadge>}
                   {selected.stuck && <PixelBadge tone="red"><CircleAlert className="h-3 w-3" /> {c.rescue}</PixelBadge>}
@@ -1477,15 +1552,15 @@ export default function ADHDQuestBoardPrototype() {
                       }
                     }}
                     autoFocus
-                    className="w-full max-w-sm rounded-xl bg-[#F5F5F7] px-3 py-2 text-[24px] font-medium leading-tight tracking-[-0.028em] outline-none ring-1 ring-black/[0.06] focus:bg-white focus:ring-4 focus:ring-black/10"
+                    className="w-full max-w-sm rounded-xl bg-[#F5F5F7] px-3 py-2 text-[22px] font-medium leading-tight tracking-[-0.028em] outline-none ring-1 ring-black/[0.06] focus:bg-white focus:ring-4 focus:ring-black/10"
                   />
                 ) : (
                   <div className="flex min-w-0 items-center gap-2">
-                    <h2 className="min-w-0 break-words text-[24px] font-medium leading-tight tracking-[-0.028em]">{selected.title}</h2>
+                    <h2 className="min-w-0 break-words text-[22px] font-medium leading-tight tracking-[-0.028em]">{selected.title}</h2>
                     <button type="button" onClick={() => startRename(selected)} className="grid h-11 w-11 shrink-0 place-items-center rounded-full text-[#A1A1A6] transition hover:bg-[#F5F5F7] hover:text-[#1D1D1F] focus:outline-none focus:ring-4 focus:ring-black/10" aria-label="rename project"><Pencil className="h-4 w-4" /></button>
                   </div>
                 )}
-                <input value={selected.subtitle || ""} onChange={(event) => updateProjectField(selected.id, "subtitle", event.target.value)} className="mt-2 block min-h-11 w-full rounded-[12px] border-0 bg-[#F5F5F7] px-3 text-[14px] font-normal text-[#86868B] outline-none transition focus:bg-white focus:ring-4 focus:ring-black/10" />
+                <input value={selected.subtitle || ""} onChange={(event) => updateProjectField(selected.id, "subtitle", event.target.value)} className="mt-2 block min-h-10 w-full rounded-[12px] border-0 bg-[#F5F5F7] px-3 text-[14px] font-normal text-[#86868B] outline-none transition focus:bg-white focus:ring-4 focus:ring-black/10" />
               </div>
               <div className="grid grid-cols-2 gap-2 sm:flex sm:flex-row lg:grid lg:grid-cols-1">
                 <Button onClick={toggleJailSelected} variant="light" disabled={selected.paused} className={cx("w-full sm:w-[128px] lg:w-full", selected.paused ? "opacity-50" : "")}><CircleAlert className="h-4 w-4" /> <span className="min-w-[56px] text-center">{selected.stuck ? c.closeJail : c.rescue}</span></Button>
@@ -1494,14 +1569,14 @@ export default function ADHDQuestBoardPrototype() {
               </div>
             </div>
 
-            <div className="mt-6 rounded-[18px] bg-gradient-to-br from-[#F7F8FB] via-[#F5F5F7] to-[#EAF4FF] p-4 ring-1 ring-black/[0.04] sm:p-6">
-              <div className="grid gap-5 sm:grid-cols-[auto_minmax(0,1fr)] sm:items-end">
+            <div className="mt-3 rounded-[18px] bg-gradient-to-br from-[#F7F8FB] via-[#F5F5F7] to-[#EAF4FF] p-3 ring-1 ring-black/[0.04]">
+              <div className="grid gap-4 sm:grid-cols-[auto_minmax(0,1fr)] sm:items-end">
                 <div className="shrink-0">
                   <div className="text-[12px] font-medium uppercase tracking-wide text-[#86868B]">Progress</div>
-                  <div className="mt-1 text-[38px] font-medium tracking-[-0.05em] sm:text-[40px]">{progress}%</div>
+                  <div className="mt-1 text-[32px] font-medium tracking-[-0.05em] sm:text-[34px]">{progress}%</div>
                 </div>
                 <div className="rounded-[14px] bg-white/70 p-3 ring-1 ring-black/[0.04]">
-                  <div className="mb-2 flex items-center justify-between text-[11px] font-medium uppercase tracking-wide text-[#A1A1A6]"><span>0</span><span>{progress}% cleared</span><span>100</span></div>
+                  <div className="mb-2 flex items-center justify-between text-[11px] font-medium uppercase tracking-wide text-[#A1A1A6]"><span>0</span><span>{progress}% {c.progressCleared}</span><span>100</span></div>
                   <div className="h-3 overflow-hidden rounded-full bg-[#E5E5EA]"><div className={cx("h-full rounded-full", tint.bar)} style={{ width: `${progress}%` }} /></div>
                 </div>
               </div>
@@ -1548,53 +1623,82 @@ export default function ADHDQuestBoardPrototype() {
       { label: c.inProgressTasks, value: selectedTaskStats.inProgress, badge: null, tone: "gold", icon: PlayCircle },
       { label: c.notStartedTasks, value: selectedTaskStats.notStarted, badge: null, tone: "neutral", icon: Circle },
     ];
-    const maxBucket = selectedWeeklyBuckets.length ? Math.max(1, ...selectedWeeklyBuckets.map((item) => item.count)) : 1;
+    const maxTrend = Math.max(1, ...selectedCompletedTrend.map((item) => item.count));
+    const totalScheduled = selectedWeekDays.reduce((sum, item) => sum + item.count, 0);
+    const weekdayFormatter = new Intl.DateTimeFormat(lang === "zh" ? "zh-CN" : "en-US", { weekday: "short" });
     return (
-      <Card className="p-5 sm:p-6">
-        <div className="mb-5 flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
-          <div>
-            <h3 className="text-[20px] font-medium tracking-[-0.025em]">{c.insightsWeeklyPlan}</h3>
-            <p className="mt-1.5 text-[13px] leading-5 text-[#86868B]">{c.insightsWeeklyPlanDesc}</p>
-          </div>
+      <Card className="p-4 sm:p-5">
+        <div className="mb-3 flex items-center justify-between gap-3">
+          <h3 className="text-[20px] font-medium tracking-[-0.025em]">{c.insightsWeeklyPlan}</h3>
           {selected && <PixelBadge tone="neutral">{selected.title}</PixelBadge>}
         </div>
-        <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
-          {metrics.map((metric) => {
-            const Icon = metric.icon;
-            return (
-              <div key={metric.label} className="rounded-[16px] bg-[#F5F5F7] p-4 ring-1 ring-black/[0.03]">
-                <div className="mb-4 flex items-center justify-between gap-3">
-                  <span className="text-[13px] font-medium text-[#86868B]">{metric.label}</span>
-                  <span className="grid h-8 w-8 place-items-center rounded-full bg-white text-[#6E6E73] ring-1 ring-black/[0.04]"><Icon className="h-4 w-4" /></span>
-                </div>
-                <div className="flex items-end justify-between gap-2">
-                  <div className="text-[28px] font-medium tracking-[-0.04em] tabular-nums">{metric.value}</div>
-                  {metric.badge && <PixelBadge tone={metric.tone}>{metric.badge}</PixelBadge>}
-                </div>
-              </div>
-            );
-          })}
-        </div>
-        <div className="mt-4 rounded-[18px] bg-[#F5F5F7] p-4 ring-1 ring-black/[0.03]">
-          <div className="mb-4 flex items-center justify-between gap-3">
-            <h4 className="text-[15px] font-medium tracking-[-0.01em]">{c.weeklyPlan}</h4>
-            <PixelBadge tone="neutral">{selectedWeeklyBuckets.reduce((sum, item) => sum + item.count, 0)}</PixelBadge>
-          </div>
-          {selectedWeeklyBuckets.length ? (
-            <div className="grid grid-cols-7 gap-2">
-              {selectedWeeklyBuckets.map((item) => (
-                <div key={item.label} className="flex min-w-0 flex-col items-center gap-2 rounded-[12px] bg-white/70 px-2 py-3 ring-1 ring-black/[0.03]">
-                  <div className="flex h-16 w-full items-end justify-center">
-                    <div className="w-2.5 rounded-full bg-[#007AFF]" style={{ height: `${Math.max(8, (item.count / maxBucket) * 56)}px` }} />
+
+        <div className="grid gap-3 lg:grid-cols-[minmax(0,1fr)_270px]">
+          <div className="grid gap-2 sm:grid-cols-2 xl:grid-cols-4">
+            {metrics.map((metric) => {
+              const Icon = metric.icon;
+              return (
+                <div key={metric.label} className="min-h-[64px] rounded-[14px] bg-[#F5F5F7] p-2.5 ring-1 ring-black/[0.03]">
+                  <div className="mb-1 flex items-center justify-between gap-2">
+                    <span className="text-[11px] font-medium text-[#86868B]">{metric.label}</span>
+                    <span className="grid h-6 w-6 shrink-0 place-items-center rounded-full bg-white text-[#6E6E73] ring-1 ring-black/[0.04]"><Icon className="h-3 w-3" /></span>
                   </div>
-                  <div className="text-[11px] font-medium text-[#86868B]">{item.label}</div>
-                  <div className="text-[12px] font-medium text-[#1D1D1F] tabular-nums">{item.count}</div>
+                  <div className="flex items-end justify-between gap-2">
+                    <div className="text-[20px] font-medium tracking-[-0.04em] tabular-nums">{metric.value}</div>
+                    {metric.badge && <PixelBadge tone={metric.tone}>{metric.badge}</PixelBadge>}
+                  </div>
                 </div>
-              ))}
+              );
+            })}
+          </div>
+
+          <div className="rounded-[14px] bg-[#F5F5F7] p-2.5 ring-1 ring-black/[0.03]">
+            <div className="mb-2 flex items-center justify-between gap-3">
+              <h4 className="text-[12px] font-medium text-[#6E6E73]">{c.completedTrend}</h4>
+              <span className="text-[11px] font-medium text-[#A1A1A6]">7</span>
             </div>
-          ) : (
-            <EmptyState>{c.weeklyPlanEmpty}</EmptyState>
-          )}
+            <div className="grid grid-cols-[24px_minmax(0,1fr)] gap-2">
+              <div className="flex h-[48px] flex-col justify-between text-[10px] text-[#A1A1A6]">
+                <span>{maxTrend}</span>
+                <span>0</span>
+              </div>
+              <div className="flex h-[48px] items-end justify-between gap-2">
+                {selectedCompletedTrend.map((item) => (
+                  <div key={item.label} className="flex min-w-0 flex-1 flex-col items-center gap-1">
+                    <div className="flex h-8 w-full items-end justify-center">
+                      <div className="w-2.5 rounded-t-full bg-[#007AFF]" style={{ height: item.count ? `${Math.max(8, (item.count / maxTrend) * 32)}px` : "3px" }} />
+                    </div>
+                    <span className="text-[10px] text-[#86868B]">{item.label}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className="mt-3 rounded-[14px] bg-[#F5F5F7] p-3 ring-1 ring-black/[0.03]">
+          <div className="mb-2 flex items-center justify-between gap-3">
+            <h4 className="text-[14px] font-medium tracking-[-0.01em]">{c.thisWeek}</h4>
+            <PixelBadge tone="neutral">{totalScheduled}</PixelBadge>
+          </div>
+          <div className="grid grid-cols-[32px_minmax(0,1fr)_32px] items-stretch gap-2">
+            <button type="button" onClick={() => setWeekOffset((value) => value - 1)} className="grid min-h-14 place-items-center rounded-[12px] bg-white/70 text-[#86868B] ring-1 ring-black/[0.04] transition hover:bg-white hover:text-[#1D1D1F] focus:outline-none focus:ring-4 focus:ring-black/10" aria-label={c.prevWeek} title={c.prevWeek}><ChevronRight className="h-4 w-4 rotate-180" /></button>
+            <div className="min-w-0 overflow-x-auto lg:overflow-visible">
+              <div className="grid min-w-[620px] grid-cols-7 gap-2 lg:min-w-0">
+                {selectedWeekDays.map((item) => {
+                  const isToday = sameCalendarDay(item.date, new Date());
+                  return (
+                    <div key={item.label} className={cx("rounded-[12px] bg-white/70 px-2 py-1.5 text-center ring-1", isToday ? "bg-white ring-[#007AFF]/25" : "ring-black/[0.04]")}>
+                      <div className="text-[10px] font-medium text-[#86868B]">{weekdayFormatter.format(item.date)}</div>
+                      <div className="mt-0.5 text-[11px] font-medium text-[#1D1D1F]">{item.label}</div>
+                      <div className="mt-1 text-[11px] text-[#6E6E73]">{item.count ? `${item.count} ${c.scheduledTasks}` : c.restDay}</div>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+            <button type="button" onClick={() => setWeekOffset((value) => value + 1)} className="grid min-h-14 place-items-center rounded-[12px] bg-white/70 text-[#86868B] ring-1 ring-black/[0.04] transition hover:bg-white hover:text-[#1D1D1F] focus:outline-none focus:ring-4 focus:ring-black/10" aria-label={c.nextWeek} title={c.nextWeek}><ChevronRight className="h-4 w-4" /></button>
+          </div>
         </div>
       </Card>
     );
@@ -1658,8 +1762,8 @@ export default function ADHDQuestBoardPrototype() {
         <input
           autoFocus
           type="date"
-          value={task.dueDate || ""}
-          onChange={(event) => updateTaskMeta(projectId, task.id, "dueDate", event.target.value)}
+          value={task.scheduledDate || ""}
+          onChange={(event) => updateTaskMeta(projectId, task.id, "scheduledDate", event.target.value)}
           onBlur={() => setEditingTaskMeta(null)}
           className="min-h-8 rounded-[9px] border-0 bg-[#F5F5F7] px-2 text-[11px] font-medium text-[#6E6E73] outline-none ring-1 ring-black/[0.05] focus:ring-4 focus:ring-black/10"
         />
@@ -1667,15 +1771,15 @@ export default function ADHDQuestBoardPrototype() {
     }
     return (
       <button type="button" onClick={() => setEditingTaskMeta(key)} className="inline-flex min-h-8 items-center rounded-[9px] bg-[#F5F5F7] px-2 text-[11px] font-medium text-[#6E6E73] ring-1 ring-black/[0.05] transition hover:bg-[#ECECEF] focus:outline-none focus:ring-4 focus:ring-black/10" title={c.taskDate}>
-        {task.dueDate || c.noTaskDate}
+        {task.scheduledDate || c.noTaskDate}
       </button>
     );
   }
 
   function renderTaskListCard() {
     return (
-      <Card className="p-5 sm:p-7">
-        <div className="mb-7 flex items-end justify-between gap-4">
+      <Card className="p-5">
+        <div className="mb-5 flex items-end justify-between gap-4">
           <div>
             <h3 className="text-[20px] font-medium tracking-[-0.025em]">{c.questLog}</h3>
             <p className="mt-1.5 text-[13px] font-normal text-[#86868B]">{c.questLogDesc}</p>
@@ -1686,7 +1790,7 @@ export default function ADHDQuestBoardPrototype() {
           <div className="divide-y divide-black/[0.06]">
             {orderedTasksOf(selected).map((task) => {
               return (
-                <div key={task.id} draggable onDragStart={() => selected && setDraggingTask({ projectId: selected.id, taskId: task.id })} onDragOver={(event) => event.preventDefault()} onDrop={() => { if (selected && draggingTask?.projectId === selected.id) reorderTaskInProject(selected.id, draggingTask.taskId, task.id); setDraggingTask(null); }} className="group flex w-full gap-3 py-5 text-left transition first:pt-0 last:pb-0">
+                <div key={task.id} draggable onDragStart={() => selected && setDraggingTask({ projectId: selected.id, taskId: task.id })} onDragOver={(event) => event.preventDefault()} onDrop={() => { if (selected && draggingTask?.projectId === selected.id) reorderTaskInProject(selected.id, draggingTask.taskId, task.id); setDraggingTask(null); }} className="group flex w-full gap-3 py-4 text-left transition first:pt-0 last:pb-0">
                   <div className="mt-1 grid h-8 w-5 shrink-0 cursor-grab place-items-center rounded-full text-[14px] text-[#C7C7CC] active:cursor-grabbing">⋮⋮</div>
                   <button type="button" onClick={() => completeTask(selected.id, task.id)} className="mt-1 grid h-11 w-11 shrink-0 place-items-center rounded-full transition focus:outline-none focus:ring-4 focus:ring-black/10" aria-label={c.complete}>
                     <span className={cx("grid h-6 w-6 place-items-center rounded-full border transition", task.done ? "border-[#34C759] bg-[#34C759] text-white" : "border-[#C7C7CC] bg-transparent text-transparent group-hover:border-[#8E8E93] group-hover:text-[#8E8E93]")}>{task.done ? <Check className="h-3.5 w-3.5" /> : <Circle className="h-3 w-3" />}</span>
@@ -1696,7 +1800,7 @@ export default function ADHDQuestBoardPrototype() {
                       {renderTaskTypeMeta(selected.id, task)}
                       {renderTaskWeightMeta(selected.id, task)}
                       {renderTaskDateMeta(selected.id, task)}
-                      {task.dueDate && <button type="button" onClick={() => updateTaskMeta(selected.id, task.id, "dueDate", "")} className="inline-flex min-h-8 items-center rounded-[9px] px-2 text-[11px] font-medium text-[#A1A1A6] transition hover:bg-[#F5F5F7] hover:text-[#D93025] focus:outline-none focus:ring-4 focus:ring-black/10" title={c.clearDate}>×</button>}
+                      {task.scheduledDate && <button type="button" onClick={() => updateTaskMeta(selected.id, task.id, "scheduledDate", "")} className="inline-flex min-h-8 items-center rounded-[9px] px-2 text-[11px] font-medium text-[#A1A1A6] transition hover:bg-[#F5F5F7] hover:text-[#D93025] focus:outline-none focus:ring-4 focus:ring-black/10" title={c.clearDate}>×</button>}
                     </div>
                     <div className={cx("break-words text-[17px] font-medium tracking-[-0.01em]", task.done && "text-[#34A853] line-through")}>{task.title}</div>
                     <textarea data-autosize="true" value={task.action || ""} onChange={(event) => selected && handleTaskActionChange(selected.id, task.id, event)} rows={1} className="mt-2 min-h-11 w-full resize-none overflow-hidden rounded-[12px] border-0 bg-[#F5F5F7] px-3 py-2 text-[13px] leading-5 text-[#6E6E73] outline-none transition focus:bg-white focus:ring-4 focus:ring-black/10" placeholder={c.nodeDescPlaceholder} />
@@ -1714,20 +1818,22 @@ export default function ADHDQuestBoardPrototype() {
 
   function renderDashboardPage() {
     return (
-      <main className="relative mx-auto max-w-6xl px-4 py-8 sm:px-8 sm:py-12 lg:py-16">
-        <header className="mb-8 max-w-2xl">
-          <h1 className="text-[36px] font-medium leading-[1.05] tracking-[-0.045em] text-[#1D1D1F] sm:text-[52px]">{c.boardTitle}</h1>
-          <p className="mt-5 max-w-3xl text-[15px] leading-6 text-[#86868B] sm:text-[16px]">{c.boardDesc}</p>
+      <main className="relative mx-auto max-w-[1180px] px-4 py-5 sm:px-8 sm:py-6 lg:py-3">
+        <header className="mb-3">
+          <div className="max-w-[780px]">
+            <h1 className="text-[34px] font-medium leading-[1.04] tracking-[-0.045em] text-[#1D1D1F] sm:text-[42px]">{c.boardTitle}</h1>
+            <p className="mt-2 text-[14px] leading-6 text-[#86868B] sm:text-[15px]">{c.boardDesc}</p>
+          </div>
         </header>
-        <section className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(280px,360px)] lg:items-start">
-          <div className="space-y-6">
+        <section className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_360px] lg:items-start">
+          <div className="space-y-3">
             {renderProjectOverviewCard()}
             <div className="lg:hidden">{renderProjectSwitcher()}</div>
             {renderProjectInsightsCard()}
             {renderBlockerHistory()}
             {renderTaskListCard()}
           </div>
-          <aside className="hidden space-y-6 lg:block">{renderProjectSwitcher()}</aside>
+          <aside className="hidden lg:block">{renderProjectSwitcher()}</aside>
         </section>
         {renderAddTaskModal()}
         {renderProjectManagerModal()}
@@ -1737,7 +1843,7 @@ export default function ADHDQuestBoardPrototype() {
 
   function renderReadyTaskActions(project, task, compact = false) {
     return (
-      <div className={cx("grid gap-2", compact ? "sm:grid-cols-3" : "sm:w-44")}>
+      <div className={cx("grid gap-2", compact ? "grid-cols-2 [&>button:last-child]:col-span-2" : "sm:w-44")}>
         <Button onClick={() => completeTask(project.id, task.id)} variant="green" disabled={project.paused} className="w-full"><Check className="h-4 w-4" /> {c.complete}</Button>
         <Button onClick={() => { setSelectedId(project.id); setActivePage("dashboard"); }} variant="light" className="w-full">{c.enterProject}</Button>
         <button type="button" onClick={() => toggleFiveMinute(project.id, task.id)} className={cx("min-h-11 rounded-full px-3 text-[13px] font-medium transition focus:outline-none focus:ring-4 focus:ring-black/10", task.focusMode ? "bg-[#FFF8E7] text-[#8A6400] ring-1 ring-[#FFD60A]/25 hover:bg-[#FFF3C4]" : "bg-[#F5F5F7] text-[#6E6E73] hover:bg-[#ECECEF]")}>{task.focusMode ? c.cancelTiny : c.tiny}</button>
@@ -1746,53 +1852,34 @@ export default function ADHDQuestBoardPrototype() {
   }
 
   function renderPrimaryReadyTask(item) {
-    if (!item) return <EmptyState>{c.noNow}</EmptyState>;
     const { project, task, progress: itemProgress } = item;
     const pt = tintMap[project.tint] || tintMap.blue;
     return (
-      <Card draggable onDragStart={() => setDraggingProjectId(project.id)} onDragOver={(event) => event.preventDefault()} onDrop={() => { reorderProjectById(draggingProjectId, project.id); setDraggingProjectId(null); }} className="p-5 sm:p-7">
-        <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_180px] lg:items-start">
-          <div className="min-w-0">
-            <div className="mb-5 flex flex-wrap items-center gap-3">
-              <div className="grid h-8 w-5 shrink-0 cursor-grab place-items-center rounded-full text-[14px] text-[#C7C7CC] active:cursor-grabbing">⋮⋮</div>
-              <PixelIcon className={cx("h-12 w-12 rounded-xl text-2xl", pt.bg)}>{project.icon}</PixelIcon>
-              <div className="flex min-w-0 flex-wrap items-center gap-2">
-                <PixelBadge tone={project.paused ? "neutral" : "blue"}>{project.paused ? c.statusSealed : c.statusActive}</PixelBadge>
-                {project.stuck && <PixelBadge tone="red"><CircleAlert className="h-3 w-3" /> {c.rescue}</PixelBadge>}
-                <PixelBadge tone={isMilestoneTask(task.type) ? "red" : "gold"}>{labelFor(lang, "taskType", task.type)}</PixelBadge>
-                <PixelBadge tone="neutral">{project.title}</PixelBadge>
-              </div>
-            </div>
-            <div className="mb-2 text-[13px] font-medium text-[#86868B]">{c.currentFocusTask}</div>
-            <h2 className="break-words text-[28px] font-medium leading-tight tracking-[-0.035em] sm:text-[32px]">{task.title}</h2>
-            <p className="mt-3 break-words text-[15px] leading-7 text-[#6E6E73]">{task.action}</p>
-
-            {task.focusMode && (
-              <div className="mt-5 rounded-[18px] bg-[#FFF8E7] p-4 ring-1 ring-[#FFD60A]/25">
-                <div className="mb-2 flex flex-col gap-1 sm:flex-row sm:items-center sm:justify-between">
-                  <div className="text-[13px] font-medium text-[#8A6400]">{c.fiveMinuteLabel}</div>
-                  <div className="text-[12px] text-[#A37A00]">{c.fiveMinuteHint}</div>
-                </div>
-                <textarea data-autosize="true" value={task.focusAction || ""} onChange={(event) => { resizeTextarea(event.currentTarget); updateTaskFocusAction(project.id, task.id, event.target.value); }} rows={2} className="w-full resize-none overflow-hidden rounded-[12px] border-0 bg-white/70 px-3 py-2 text-[14px] leading-6 text-[#6E5B20] outline-none transition focus:ring-4 focus:ring-[#FFD60A]/20" />
-              </div>
-            )}
-
-            <div className="mt-6 grid gap-4 sm:grid-cols-3">
-              <div className="rounded-[16px] bg-[#F5F5F7] p-4">
-                <div className="mb-2 text-[12px] font-medium text-[#86868B]">{c.projectProgress}</div>
-                <div className="flex items-center gap-3"><span className="w-10 text-[15px] font-medium tabular-nums">{itemProgress}%</span><div className="h-2 flex-1 overflow-hidden rounded-full bg-[#E5E5EA]"><div className={cx("h-full rounded-full", pt.bar)} style={{ width: `${itemProgress}%` }} /></div></div>
-              </div>
-              <div className="rounded-[16px] bg-[#F5F5F7] p-4">
-                <div className="mb-2 text-[12px] font-medium text-[#86868B]">{c.taskStatus}</div>
-                <PixelBadge tone={task.focusMode ? "gold" : "blue"}>{task.focusMode ? c.fiveMinuteLabel : c.statusActive}</PixelBadge>
-              </div>
-              <div className="rounded-[16px] bg-[#F5F5F7] p-4">
-                <div className="mb-2 text-[12px] font-medium text-[#86868B]">{c.todaySuggestion}</div>
-                <div className="text-[15px] font-medium tracking-[-0.01em]">{c.oneFiveMinute}</div>
-              </div>
-            </div>
+      <Card key={project.id} draggable onDragStart={() => setDraggingProjectId(project.id)} onDragOver={(event) => event.preventDefault()} onDrop={() => { reorderProjectById(draggingProjectId, project.id); setDraggingProjectId(null); }} className="flex min-w-0 flex-col p-5">
+        <div className="mb-3 flex min-w-0 items-center gap-3">
+          <span className="cursor-grab text-[#C7C7CC]" aria-hidden="true">⋮⋮</span>
+          <Folder className="h-5 w-5 shrink-0 text-[#007AFF]" />
+          <span className="min-w-0 break-words text-[13px] text-[#6E6E73]">{project.title}</span>
+        </div>
+        <div className="mb-3 flex flex-wrap gap-2">
+          <PixelBadge tone={project.paused ? "neutral" : "blue"}>{project.paused ? c.statusSealed : c.statusActive}</PixelBadge>
+          {project.stuck && <PixelBadge tone="red"><CircleAlert className="h-3 w-3" />{c.rescue}</PixelBadge>}
+          <PixelBadge tone="neutral">{labelFor(lang, "taskType", task.type)}</PixelBadge>
+        </div>
+        <h2 className="break-words text-[18px] font-medium leading-6">{task.title}</h2>
+        <p className="mt-2 whitespace-pre-wrap break-words text-[13px] leading-5 text-[#6E6E73]">{task.action}</p>
+        {task.focusMode && (
+          <div className="mt-3 rounded-[12px] bg-[#FFF8E7] p-3">
+            <div className="mb-1 text-[12px] text-[#8A6400]">{c.fiveMinuteLabel}</div>
+            <textarea aria-label={c.fiveMinuteLabel} data-autosize="true" value={task.focusAction || ""} onChange={(event) => { resizeTextarea(event.currentTarget); updateTaskFocusAction(project.id, task.id, event.target.value); }} rows={2} className="w-full resize-none overflow-hidden rounded-[8px] bg-white/70 px-2 py-2 text-[13px] leading-5 outline-none focus:ring-2 focus:ring-[#FFD60A]/25" />
           </div>
-          <div className="lg:pt-11">{renderReadyTaskActions(project, task)}</div>
+        )}
+        <div className="mt-auto pt-4">
+          <div className="mb-3 flex items-center gap-3">
+            <span className="text-[12px] tabular-nums text-[#86868B]">{itemProgress}%</span>
+            <div className="h-1.5 flex-1 overflow-hidden rounded-full bg-[#E5E5EA]"><div className={cx("h-full rounded-full", pt.bar)} style={{ width: `${itemProgress}%` }} /></div>
+          </div>
+          {renderReadyTaskActions(project, task, true)}
         </div>
       </Card>
     );
@@ -1864,11 +1951,9 @@ export default function ADHDQuestBoardPrototype() {
   }
 
   function renderNowPage() {
-    const primary = filteredNextSteps[0] || null;
-    const otherTasks = filteredNextSteps.slice(1);
     return (
-      <main className="relative mx-auto max-w-6xl px-4 py-8 sm:px-8 sm:py-12 lg:py-16">
-        <header className="mb-8 max-w-2xl">
+      <main className="relative mx-auto max-w-[1320px] px-4 py-6 sm:px-8 sm:py-8">
+        <header className="mb-5 max-w-2xl">
           <h1 className="text-[36px] font-medium leading-[1.05] tracking-[-0.045em] text-[#1D1D1F] sm:text-[54px]">{c.nowTitle}</h1>
           <p className="mt-5 max-w-xl text-[15px] leading-6 text-[#86868B] sm:text-[16px]">{c.nowDesc}</p>
         </header>
@@ -1889,14 +1974,15 @@ export default function ADHDQuestBoardPrototype() {
           </Card>
         </div>
 
-        <section className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_320px] lg:items-start">
-          {renderPrimaryReadyTask(primary)}
+        {filteredNextSteps.length ? (
+          <section className="grid items-stretch gap-4 md:grid-cols-2 xl:grid-cols-3">
+            {filteredNextSteps.map(renderPrimaryReadyTask)}
+          </section>
+        ) : <EmptyState>{c.noNow}</EmptyState>}
+        <details className="mt-5">
+          <summary className="cursor-pointer py-3 text-[13px] text-[#6E6E73]">{c.whyFiveTitle}</summary>
           {renderFiveMinuteInfoCard()}
-        </section>
-
-        <section className="mt-6">
-          {otherTasks.length ? renderOtherReadyTasks(otherTasks) : null}
-        </section>
+        </details>
       </main>
     );
   }
@@ -2032,7 +2118,7 @@ export default function ADHDQuestBoardPrototype() {
   }
 
   return appShell(
-    <main className="relative mx-auto max-w-6xl px-5 py-12 sm:px-8 lg:py-16"><header className="mb-10 flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between"><div className="max-w-2xl"><h1 className="text-[36px] font-medium leading-[1.05] tracking-[-0.045em] text-[#1D1D1F] sm:text-[52px]">{c.boardTitle}</h1><p className="mt-5 max-w-3xl truncate text-[15px] leading-6 text-[#86868B] sm:text-[16px]">{c.boardDesc}</p></div></header><section className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_380px] lg:items-start"><div className="space-y-8"><Card className="p-7 sm:p-8">{selected ? <><div className="mb-8 grid gap-5 sm:grid-cols-[auto_minmax(0,1fr)_auto] sm:items-start"><PixelIcon className={tint.bg}>{selected.icon}</PixelIcon><div className="min-w-0 w-full"><div className="mb-3 flex flex-wrap items-center gap-2"><PixelBadge tone="blue" title={c.dungeonHint}>Project</PixelBadge><PixelBadge tone="gold" title={c.levelHint}>Lv.{selected.level}</PixelBadge>{selected.archived && <PixelBadge tone="green" title={c.archiveHint}>{c.statusArchived}</PixelBadge>}{selected.paused && !selected.archived && <PixelBadge tone="neutral" title={c.sealedBadgeHint}>paused</PixelBadge>}{selected.stuck && <PixelBadge tone="red"><CircleAlert className="h-3 w-3" /> {c.rescue}</PixelBadge>}</div>{editingProjectId === selected.id ? <input value={draftTitle} onChange={(event) => setDraftTitle(event.target.value)} onBlur={commitRename} onKeyDown={(event) => { if (event.key === "Enter") commitRename(); if (event.key === "Escape") { setEditingProjectId(null); setDraftTitle(""); } }} autoFocus className="w-full max-w-sm rounded-xl bg-[#F5F5F7] px-3 py-2 text-[24px] font-medium leading-tight tracking-[-0.028em] outline-none ring-1 ring-black/[0.06] focus:bg-white focus:ring-4 focus:ring-black/10" /> : <div className="flex items-center gap-2"><h2 className="text-[24px] font-medium leading-tight tracking-[-0.028em]">{selected.title}</h2><button type="button" onClick={() => startRename(selected)} className="grid h-11 w-11 place-items-center rounded-full text-[#A1A1A6] transition hover:bg-[#F5F5F7] hover:text-[#1D1D1F] focus:outline-none focus:ring-4 focus:ring-black/10" aria-label="rename project"><Pencil className="h-4 w-4" /></button></div>}<input value={selected.subtitle || ""} onChange={(event) => updateProjectField(selected.id, "subtitle", event.target.value)} className="mt-1.5 block min-h-11 w-full rounded-[12px] border-0 bg-[#F5F5F7] px-3 text-[14px] font-normal text-[#86868B] outline-none transition focus:bg-white focus:ring-4 focus:ring-black/10" /></div><div className="flex gap-2"><Button onClick={toggleJailSelected} variant="light" disabled={selected.paused} className={selected.paused ? "opacity-50" : ""}><CircleAlert className="h-4 w-4" /> {selected.stuck ? c.closeJail : c.rescue}</Button><Button onClick={toggleSealSelected} variant="light" title={c.sealHint}><PauseCircle className="h-4 w-4" /> {selected.paused ? c.unseal : c.seal}</Button>{(progress === 100 || selected.archived) && <Button onClick={() => toggleArchiveProject(selected.id)} variant="light" title={c.archiveHint}><Archive className="h-4 w-4" /> {selected.archived ? c.unarchive : c.archive}</Button>}</div></div><div className="rounded-[18px] bg-gradient-to-br from-[#F7F8FB] via-[#F5F5F7] to-[#EAF4FF] p-6 ring-1 ring-black/[0.04]"><div className="grid gap-5 sm:grid-cols-[auto_minmax(0,1fr)] sm:items-end"><div className="shrink-0"><div className="text-[13px] font-medium uppercase tracking-wide text-[#86868B]">Progress</div><div className="mt-1 text-[40px] font-medium tracking-[-0.05em]">{progress}%</div></div><div className="rounded-[14px] bg-white/70 p-3 ring-1 ring-black/[0.04]"><div className="mb-2 flex items-center justify-between text-[11px] font-medium uppercase tracking-wide text-[#A1A1A6]"><span>0</span><span>{progress}% cleared</span><span>100</span></div><div className="h-3 overflow-hidden rounded-full bg-[#E5E5EA]"><div className={cx("h-full rounded-full", tint.bar)} style={{ width: `${progress}%` }} /></div></div></div></div>{selected.paused && !selected.archived && <div className="mt-6 rounded-[16px] bg-[#F5F5F7] p-5 ring-1 ring-black/[0.04]"><div className="text-[15px] font-medium text-[#1D1D1F]">{c.sealedPanelTitle}</div><p className="mt-2 text-[14px] leading-6 text-[#86868B]">{c.sealedPanelDesc}</p></div>}</> : <EmptyState><div className="text-3xl">🗺️</div><h2 className="mt-3 text-[20px] font-medium tracking-[-0.02em]">{c.noProject}</h2><p className="mt-2">{c.noProjectDesc}</p></EmptyState>}</Card>{selected?.stuck && !selected.paused && <Card className="overflow-hidden bg-white p-0 ring-1 ring-[#FF453A]/10"><div className="border-b border-[#FF453A]/10 bg-[#FFF1EF] px-6 py-5"><div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between"><div className="flex min-w-0 flex-1 gap-4"><PixelIcon className="bg-white text-[#D93025]"><CircleAlert className="h-7 w-7" /></PixelIcon><div className="min-w-0 flex-1"><div className="mb-2 flex flex-wrap items-center gap-2"><PixelBadge tone="red">{c.rescue}</PixelBadge><PixelBadge tone="neutral">Lv.{selected.level}</PixelBadge></div><div className="text-[20px] font-medium tracking-[-0.02em] text-[#1D1D1F]">{c.rescueMode}</div><p className="mt-2 max-w-2xl text-[14px] leading-6 text-[#6E6E73]">{c.rescueDesc}</p></div></div><Button onClick={toggleJailSelected} variant="light" className="shrink-0">{c.closeJail}</Button></div></div><div className="grid gap-4 p-6 lg:grid-cols-2"><label className="block"><span className="mb-2 block text-[13px] font-medium text-[#1D1D1F]">{c.jailReasonTitle}</span><textarea value={selected.stuckReason || ""} onChange={(event) => updateProjectField(selected.id, "stuckReason", event.target.value)} placeholder={c.jailReasonPlaceholder} rows={4} className="w-full resize-none rounded-[16px] border-0 bg-[#F5F5F7] px-4 py-3 text-[14px] leading-6 text-[#3A3A3C] outline-none transition focus:bg-white focus:ring-4 focus:ring-[#FF453A]/10" /></label><label className="block"><span className="mb-2 block text-[13px] font-medium text-[#1D1D1F]">{c.jailPlanTitle}</span><textarea value={selected.stuckPlan || ""} onChange={(event) => updateProjectField(selected.id, "stuckPlan", event.target.value)} placeholder={c.jailPlanPlaceholder} rows={4} className="w-full resize-none rounded-[16px] border-0 bg-[#F5F5F7] px-4 py-3 text-[14px] leading-6 text-[#3A3A3C] outline-none transition focus:bg-white focus:ring-4 focus:ring-[#FF453A]/10" /></label></div><div className="mx-6 mb-6 rounded-[16px] bg-[#F5F5F7] px-4 py-3 text-[13px] leading-6 text-[#6E6E73]">{c.jailTip}</div></Card>}{renderBlockerHistory()}<Card className="p-7 sm:p-8"><div className="mb-7 flex items-end justify-between gap-4"><div><h3 className="text-[20px] font-medium tracking-[-0.025em]">{c.questLog}</h3><p className="mt-1.5 text-[13px] font-normal text-[#86868B]">{c.questLogDesc}</p></div><button type="button" onClick={() => setTaskModalOpen(true)} className="grid h-11 w-11 shrink-0 place-items-center rounded-full bg-[#1D1D1F] text-white shadow-sm transition hover:bg-black focus:outline-none focus:ring-4 focus:ring-black/10" aria-label="add task"><Plus className="h-5 w-5" /></button></div>{selected && orderedTasksOf(selected).length ? <div className="divide-y divide-black/[0.06]">{orderedTasksOf(selected).map((task) => { const isBoss = isMilestoneTask(task.type); const tone = task.done ? "green" : isBoss ? "red" : "blue"; const taskTypeOptions = TASK_TYPES.includes(task.type) ? TASK_TYPES : [task.type, ...TASK_TYPES]; return <div key={task.id} draggable onDragStart={() => selected && setDraggingTask({ projectId: selected.id, taskId: task.id })} onDragOver={(event) => event.preventDefault()} onDrop={() => { if (selected && draggingTask?.projectId === selected.id) reorderTaskInProject(selected.id, draggingTask.taskId, task.id); setDraggingTask(null); }} className="group flex w-full gap-3 py-5 text-left transition first:pt-0 last:pb-0"><div className="mt-1 grid h-8 w-5 shrink-0 cursor-grab place-items-center rounded-full text-[14px] text-[#C7C7CC] active:cursor-grabbing">⋮⋮</div><button type="button" onClick={() => completeTask(selected.id, task.id)} className={cx("mt-1 grid h-11 w-11 shrink-0 place-items-center rounded-full transition focus:outline-none focus:ring-4 focus:ring-black/10", task.done ? "bg-[#34C759] text-white" : "bg-[#F5F5F7] text-[#8E8E93] group-hover:bg-[#ECECEF]")}>{task.done ? <Check className="h-4 w-4" /> : <Circle className="h-4 w-4" />}</button><div className="min-w-0 flex-1"><div className="mb-2 flex flex-wrap items-center gap-2"><select value={task.type} onChange={(event) => selected && updateTaskMeta(selected.id, task.id, "type", event.target.value)} className="min-h-8 rounded-[9px] border-0 bg-[#F0F7FF] px-2 text-[11px] font-medium text-[#007AFF] outline-none ring-1 ring-[#007AFF]/10 focus:ring-4 focus:ring-[#007AFF]/15">{taskTypeOptions.map((type) => <option key={type} value={type}>{labelFor(lang, "taskType", type)}</option>)}</select><select value={task.weight} onChange={(event) => selected && updateTaskMeta(selected.id, task.id, "weight", event.target.value)} className="min-h-8 rounded-[9px] border-0 bg-[#FFF6D6] px-2 text-[11px] font-medium text-[#8A6400] outline-none ring-1 ring-[#FFD60A]/25 focus:ring-4 focus:ring-[#FFD60A]/20">{TASK_WEIGHTS.map((weight) => <option key={weight} value={weight}>+{weight}%</option>)}</select></div><div className={cx("text-[17px] font-medium tracking-[-0.01em]", task.done && "text-[#34A853] line-through")}>{task.title}</div><textarea data-autosize="true" value={task.action || ""} onChange={(event) => selected && handleTaskActionChange(selected.id, task.id, event)} rows={1} className="mt-2 min-h-11 w-full resize-none overflow-hidden rounded-[12px] border-0 bg-[#F5F5F7] px-3 py-2 text-[13px] leading-5 text-[#6E6E73] outline-none transition focus:bg-white focus:ring-4 focus:ring-black/10" placeholder={c.nodeDescPlaceholder} />{task.focusMode && <div className="mt-2 rounded-[14px] bg-[#FFF8E7] p-3 ring-1 ring-[#FFD60A]/25"><div className="mb-1 text-[12px] font-medium text-[#8A6400]">{c.fiveMinuteLabel}</div><textarea value={task.focusAction || ""} onChange={(event) => selected && updateTaskFocusAction(selected.id, task.id, event.target.value)} rows={2} className="w-full resize-none rounded-[10px] border-0 bg-white/60 px-3 py-2 text-[13px] leading-5 text-[#6E5B20] outline-none focus:ring-4 focus:ring-[#FFD60A]/20" /></div>}</div><button type="button" onClick={() => selected && deleteTask(selected.id, task.id)} className="mt-1 grid h-11 w-11 shrink-0 place-items-center rounded-full text-[#A1A1A6] transition hover:bg-[#F5F5F7] hover:text-[#D93025] focus:outline-none focus:ring-4 focus:ring-black/10"><Trash2 className="h-4 w-4" /></button></div>; })}</div> : <EmptyState>{c.noTasks}</EmptyState>}</Card></div><aside className="space-y-8">{renderProjectSwitcher()}</aside></section>{renderAddTaskModal()}{renderProjectManagerModal()}</main>
+    <main className="relative mx-auto max-w-6xl px-5 py-12 sm:px-8 lg:py-16"><header className="mb-10 flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between"><div className="max-w-2xl"><h1 className="text-[36px] font-medium leading-[1.05] tracking-[-0.045em] text-[#1D1D1F] sm:text-[52px]">{c.boardTitle}</h1><p className="mt-5 max-w-3xl truncate text-[15px] leading-6 text-[#86868B] sm:text-[16px]">{c.boardDesc}</p></div></header><section className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_380px] lg:items-start"><div className="space-y-8"><Card className="p-7 sm:p-8">{selected ? <><div className="mb-8 grid gap-5 sm:grid-cols-[auto_minmax(0,1fr)_auto] sm:items-start"><PixelIcon className={tint.bg}>{selected.icon}</PixelIcon><div className="min-w-0 w-full"><div className="mb-3 flex flex-wrap items-center gap-2"><PixelBadge tone="blue" title={c.dungeonHint}>Project</PixelBadge><PixelBadge tone="gold" title={c.levelHint}>{c.projectLevel} {selected.level}</PixelBadge>{selected.archived && <PixelBadge tone="green" title={c.archiveHint}>{c.statusArchived}</PixelBadge>}{selected.paused && !selected.archived && <PixelBadge tone="neutral" title={c.sealedBadgeHint}>paused</PixelBadge>}{selected.stuck && <PixelBadge tone="red"><CircleAlert className="h-3 w-3" /> {c.rescue}</PixelBadge>}</div>{editingProjectId === selected.id ? <input value={draftTitle} onChange={(event) => setDraftTitle(event.target.value)} onBlur={commitRename} onKeyDown={(event) => { if (event.key === "Enter") commitRename(); if (event.key === "Escape") { setEditingProjectId(null); setDraftTitle(""); } }} autoFocus className="w-full max-w-sm rounded-xl bg-[#F5F5F7] px-3 py-2 text-[24px] font-medium leading-tight tracking-[-0.028em] outline-none ring-1 ring-black/[0.06] focus:bg-white focus:ring-4 focus:ring-black/10" /> : <div className="flex items-center gap-2"><h2 className="text-[24px] font-medium leading-tight tracking-[-0.028em]">{selected.title}</h2><button type="button" onClick={() => startRename(selected)} className="grid h-11 w-11 place-items-center rounded-full text-[#A1A1A6] transition hover:bg-[#F5F5F7] hover:text-[#1D1D1F] focus:outline-none focus:ring-4 focus:ring-black/10" aria-label="rename project"><Pencil className="h-4 w-4" /></button></div>}<input value={selected.subtitle || ""} onChange={(event) => updateProjectField(selected.id, "subtitle", event.target.value)} className="mt-1.5 block min-h-11 w-full rounded-[12px] border-0 bg-[#F5F5F7] px-3 text-[14px] font-normal text-[#86868B] outline-none transition focus:bg-white focus:ring-4 focus:ring-black/10" /></div><div className="flex gap-2"><Button onClick={toggleJailSelected} variant="light" disabled={selected.paused} className={selected.paused ? "opacity-50" : ""}><CircleAlert className="h-4 w-4" /> {selected.stuck ? c.closeJail : c.rescue}</Button><Button onClick={toggleSealSelected} variant="light" title={c.sealHint}><PauseCircle className="h-4 w-4" /> {selected.paused ? c.unseal : c.seal}</Button>{(progress === 100 || selected.archived) && <Button onClick={() => toggleArchiveProject(selected.id)} variant="light" title={c.archiveHint}><Archive className="h-4 w-4" /> {selected.archived ? c.unarchive : c.archive}</Button>}</div></div><div className="rounded-[18px] bg-gradient-to-br from-[#F7F8FB] via-[#F5F5F7] to-[#EAF4FF] p-6 ring-1 ring-black/[0.04]"><div className="grid gap-5 sm:grid-cols-[auto_minmax(0,1fr)] sm:items-end"><div className="shrink-0"><div className="text-[13px] font-medium uppercase tracking-wide text-[#86868B]">Progress</div><div className="mt-1 text-[40px] font-medium tracking-[-0.05em]">{progress}%</div></div><div className="rounded-[14px] bg-white/70 p-3 ring-1 ring-black/[0.04]"><div className="mb-2 flex items-center justify-between text-[11px] font-medium uppercase tracking-wide text-[#A1A1A6]"><span>0</span><span>{progress}% cleared</span><span>100</span></div><div className="h-3 overflow-hidden rounded-full bg-[#E5E5EA]"><div className={cx("h-full rounded-full", tint.bar)} style={{ width: `${progress}%` }} /></div></div></div></div>{selected.paused && !selected.archived && <div className="mt-6 rounded-[16px] bg-[#F5F5F7] p-5 ring-1 ring-black/[0.04]"><div className="text-[15px] font-medium text-[#1D1D1F]">{c.sealedPanelTitle}</div><p className="mt-2 text-[14px] leading-6 text-[#86868B]">{c.sealedPanelDesc}</p></div>}</> : <EmptyState><div className="text-3xl">🗺️</div><h2 className="mt-3 text-[20px] font-medium tracking-[-0.02em]">{c.noProject}</h2><p className="mt-2">{c.noProjectDesc}</p></EmptyState>}</Card>{selected?.stuck && !selected.paused && <Card className="overflow-hidden bg-white p-0 ring-1 ring-[#FF453A]/10"><div className="border-b border-[#FF453A]/10 bg-[#FFF1EF] px-6 py-5"><div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between"><div className="flex min-w-0 flex-1 gap-4"><PixelIcon className="bg-white text-[#D93025]"><CircleAlert className="h-7 w-7" /></PixelIcon><div className="min-w-0 flex-1"><div className="mb-2 flex flex-wrap items-center gap-2"><PixelBadge tone="red">{c.rescue}</PixelBadge><PixelBadge tone="neutral">{c.projectLevel} {selected.level}</PixelBadge></div><div className="text-[20px] font-medium tracking-[-0.02em] text-[#1D1D1F]">{c.rescueMode}</div><p className="mt-2 max-w-2xl text-[14px] leading-6 text-[#6E6E73]">{c.rescueDesc}</p></div></div><Button onClick={toggleJailSelected} variant="light" className="shrink-0">{c.closeJail}</Button></div></div><div className="grid gap-4 p-6 lg:grid-cols-2"><label className="block"><span className="mb-2 block text-[13px] font-medium text-[#1D1D1F]">{c.jailReasonTitle}</span><textarea value={selected.stuckReason || ""} onChange={(event) => updateProjectField(selected.id, "stuckReason", event.target.value)} placeholder={c.jailReasonPlaceholder} rows={4} className="w-full resize-none rounded-[16px] border-0 bg-[#F5F5F7] px-4 py-3 text-[14px] leading-6 text-[#3A3A3C] outline-none transition focus:bg-white focus:ring-4 focus:ring-[#FF453A]/10" /></label><label className="block"><span className="mb-2 block text-[13px] font-medium text-[#1D1D1F]">{c.jailPlanTitle}</span><textarea value={selected.stuckPlan || ""} onChange={(event) => updateProjectField(selected.id, "stuckPlan", event.target.value)} placeholder={c.jailPlanPlaceholder} rows={4} className="w-full resize-none rounded-[16px] border-0 bg-[#F5F5F7] px-4 py-3 text-[14px] leading-6 text-[#3A3A3C] outline-none transition focus:bg-white focus:ring-4 focus:ring-[#FF453A]/10" /></label></div><div className="mx-6 mb-6 rounded-[16px] bg-[#F5F5F7] px-4 py-3 text-[13px] leading-6 text-[#6E6E73]">{c.jailTip}</div></Card>}{renderBlockerHistory()}<Card className="p-7 sm:p-8"><div className="mb-7 flex items-end justify-between gap-4"><div><h3 className="text-[20px] font-medium tracking-[-0.025em]">{c.questLog}</h3><p className="mt-1.5 text-[13px] font-normal text-[#86868B]">{c.questLogDesc}</p></div><button type="button" onClick={() => setTaskModalOpen(true)} className="grid h-11 w-11 shrink-0 place-items-center rounded-full bg-[#1D1D1F] text-white shadow-sm transition hover:bg-black focus:outline-none focus:ring-4 focus:ring-black/10" aria-label="add task"><Plus className="h-5 w-5" /></button></div>{selected && orderedTasksOf(selected).length ? <div className="divide-y divide-black/[0.06]">{orderedTasksOf(selected).map((task) => { const isBoss = isMilestoneTask(task.type); const tone = task.done ? "green" : isBoss ? "red" : "blue"; const taskTypeOptions = TASK_TYPES.includes(task.type) ? TASK_TYPES : [task.type, ...TASK_TYPES]; return <div key={task.id} draggable onDragStart={() => selected && setDraggingTask({ projectId: selected.id, taskId: task.id })} onDragOver={(event) => event.preventDefault()} onDrop={() => { if (selected && draggingTask?.projectId === selected.id) reorderTaskInProject(selected.id, draggingTask.taskId, task.id); setDraggingTask(null); }} className="group flex w-full gap-3 py-5 text-left transition first:pt-0 last:pb-0"><div className="mt-1 grid h-8 w-5 shrink-0 cursor-grab place-items-center rounded-full text-[14px] text-[#C7C7CC] active:cursor-grabbing">⋮⋮</div><button type="button" onClick={() => completeTask(selected.id, task.id)} className={cx("mt-1 grid h-11 w-11 shrink-0 place-items-center rounded-full transition focus:outline-none focus:ring-4 focus:ring-black/10", task.done ? "bg-[#34C759] text-white" : "bg-[#F5F5F7] text-[#8E8E93] group-hover:bg-[#ECECEF]")}>{task.done ? <Check className="h-4 w-4" /> : <Circle className="h-4 w-4" />}</button><div className="min-w-0 flex-1"><div className="mb-2 flex flex-wrap items-center gap-2"><select value={task.type} onChange={(event) => selected && updateTaskMeta(selected.id, task.id, "type", event.target.value)} className="min-h-8 rounded-[9px] border-0 bg-[#F0F7FF] px-2 text-[11px] font-medium text-[#007AFF] outline-none ring-1 ring-[#007AFF]/10 focus:ring-4 focus:ring-[#007AFF]/15">{taskTypeOptions.map((type) => <option key={type} value={type}>{labelFor(lang, "taskType", type)}</option>)}</select><select value={task.weight} onChange={(event) => selected && updateTaskMeta(selected.id, task.id, "weight", event.target.value)} className="min-h-8 rounded-[9px] border-0 bg-[#FFF6D6] px-2 text-[11px] font-medium text-[#8A6400] outline-none ring-1 ring-[#FFD60A]/25 focus:ring-4 focus:ring-[#FFD60A]/20">{TASK_WEIGHTS.map((weight) => <option key={weight} value={weight}>+{weight}%</option>)}</select></div><div className={cx("text-[17px] font-medium tracking-[-0.01em]", task.done && "text-[#34A853] line-through")}>{task.title}</div><textarea data-autosize="true" value={task.action || ""} onChange={(event) => selected && handleTaskActionChange(selected.id, task.id, event)} rows={1} className="mt-2 min-h-11 w-full resize-none overflow-hidden rounded-[12px] border-0 bg-[#F5F5F7] px-3 py-2 text-[13px] leading-5 text-[#6E6E73] outline-none transition focus:bg-white focus:ring-4 focus:ring-black/10" placeholder={c.nodeDescPlaceholder} />{task.focusMode && <div className="mt-2 rounded-[14px] bg-[#FFF8E7] p-3 ring-1 ring-[#FFD60A]/25"><div className="mb-1 text-[12px] font-medium text-[#8A6400]">{c.fiveMinuteLabel}</div><textarea value={task.focusAction || ""} onChange={(event) => selected && updateTaskFocusAction(selected.id, task.id, event.target.value)} rows={2} className="w-full resize-none rounded-[10px] border-0 bg-white/60 px-3 py-2 text-[13px] leading-5 text-[#6E5B20] outline-none focus:ring-4 focus:ring-[#FFD60A]/20" /></div>}</div><button type="button" onClick={() => selected && deleteTask(selected.id, task.id)} className="mt-1 grid h-11 w-11 shrink-0 place-items-center rounded-full text-[#A1A1A6] transition hover:bg-[#F5F5F7] hover:text-[#D93025] focus:outline-none focus:ring-4 focus:ring-black/10"><Trash2 className="h-4 w-4" /></button></div>; })}</div> : <EmptyState>{c.noTasks}</EmptyState>}</Card></div><aside className="space-y-8">{renderProjectSwitcher()}</aside></section>{renderAddTaskModal()}{renderProjectManagerModal()}</main>
   );
 }
 
