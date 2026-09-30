@@ -1,4 +1,5 @@
 ﻿import React, { useEffect, useMemo, useState } from "react";
+import { useLayoutEffect, useRef } from "react";
 import {
   AlertTriangle,
   Archive,
@@ -864,10 +865,20 @@ function PixelIcon({ children, className = "" }) {
   return <div className={cx("grid h-14 w-14 shrink-0 place-items-center rounded-[14px] text-[28px] ring-1 ring-black/[0.04]", className)}><span>{typeof children === "string" ? <Folder className="h-6 w-6 text-[#6E6E73]" /> : children}</span></div>;
 }
 
+const pageLayoutClass = "relative mx-auto max-w-[1320px] px-4 py-6 sm:px-8 sm:py-8";
+function PageIntro({ title, description, badge = null }) {
+  return <header className="relative mb-5">
+    <h1 className="text-[36px] font-medium leading-[1.05] text-[#1D1D1F] sm:text-[54px]">{title}</h1>
+    <div className="mt-5 min-h-24 sm:min-h-12">
+      <p className="max-w-xl text-[15px] leading-6 text-[#86868B] sm:text-[16px]">{description}</p>
+      {badge && <div className="absolute right-0 top-1">{badge}</div>}
+    </div>
+  </header>;
+}
+
 function EmptyState({ children }) {
   return <div className="rounded-[16px] bg-[#F5F5F7] p-5 text-center text-[14px] leading-6 text-[#86868B] sm:p-8">{children}</div>;
 }
-
 function formatTime(value) {
   try {
     return new Intl.DateTimeFormat("zh-CN", { month: "2-digit", day: "2-digit", hour: "2-digit", minute: "2-digit" }).format(new Date(value));
@@ -981,6 +992,24 @@ export default function ADHDQuestBoardPrototype() {
   const [draftTitle, setDraftTitle] = useState("");
   const [todayStepIndex, setTodayStepIndex] = useState(0);
   const [weekOffset, setWeekOffset] = useState(0);
+  const taskListRef = useRef<HTMLDivElement>(null);
+  const taskPositions = useRef(new Map<string, number>());
+  useLayoutEffect(() => {
+    const rows = taskListRef.current?.querySelectorAll<HTMLElement>("[data-task-id]");
+    if (!rows || !taskPositions.current.size) return;
+    rows.forEach((row) => {
+      const oldTop = taskPositions.current.get(row.dataset.taskId!);
+      row.getAnimations().forEach((animation) => animation.cancel());
+      const top = row.getBoundingClientRect().top;
+      if (oldTop !== undefined && oldTop !== top && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+        row.animate([{ transform: `translateY(${oldTop - top}px)` }, { transform: "translateY(0)" }], {
+          duration: 480, easing: "cubic-bezier(0.22, 1, 0.36, 1)",
+        });
+      }
+    });
+    taskPositions.current.clear();
+  }, [projects]);
+
 
   const c = copyMap[lang];
   const activeProjects = useMemo(() => projects.filter((project) => !project.deletedAt), [projects]);
@@ -1095,6 +1124,10 @@ export default function ADHDQuestBoardPrototype() {
   }
 
   function completeTask(projectId, taskId) {
+    taskPositions.current.clear();
+    taskListRef.current?.querySelectorAll<HTMLElement>("[data-task-id]").forEach((row) => {
+      taskPositions.current.set(row.dataset.taskId!, row.getBoundingClientRect().top);
+    });
     const targetProject = activeProjects.find((project) => project.id === projectId);
     const targetTask = targetProject?.tasks?.find((task) => task.id === taskId);
     if (targetProject && !targetProject.paused && targetTask && !targetTask.done) markActivityToday();
@@ -1415,32 +1448,32 @@ export default function ADHDQuestBoardPrototype() {
             <input value={newProjectTitle} onChange={(event) => setNewProjectTitle(event.target.value)} onKeyDown={(event) => event.key === "Enter" && addProject()} placeholder={c.addProjectPlaceholder} className="min-h-11 min-w-0 flex-1 rounded-full border-0 bg-[#F5F5F7] px-4 text-[14px] outline-none transition placeholder:text-[#A1A1A6] focus:bg-white focus:ring-4 focus:ring-black/10" />
             <Button onClick={addProject} className="h-11 w-11 shrink-0 px-0" aria-label="add project"><Plus className="h-4 w-4" /></Button>
           </div>
-          <div className="grid grid-cols-[1fr_96px] gap-2">
+          <div className="grid grid-cols-[minmax(0,1fr)_minmax(128px,auto)] gap-2">
             <select value={newProjectCategory} onChange={(event) => setNewProjectCategory(event.target.value)} className="min-h-11 rounded-full border-0 bg-[#F5F5F7] px-4 text-[13px] font-medium text-[#6E6E73] outline-none focus:bg-white focus:ring-4 focus:ring-black/10" title={c.projectType}>{PROJECT_CATEGORIES.map((category) => <option key={category} value={category}>{labelFor(lang, "projectCategory", category)}</option>)}</select>
             <label className="flex min-h-11 items-center gap-1.5 rounded-full bg-[#F5F5F7] px-3 text-[13px] font-medium text-[#6E6E73] focus-within:bg-white focus-within:ring-4 focus-within:ring-black/10" title={c.projectLevel}>
-              <span>{c.projectLevel}</span>
+              <span className="shrink-0">{c.projectLevel}</span>
               <input type="number" min="1" max="99" value={newProjectLevel} onChange={(event) => setNewProjectLevel(Number(event.target.value) || 1)} className="min-w-0 flex-1 border-0 bg-transparent p-0 text-[13px] font-medium outline-none" />
             </label>
           </div>
         </div>
         {visibleProjects.length ? (
-          <div className="max-h-[430px] space-y-2 overflow-y-auto pr-1">
+          <div className="max-h-[640px] space-y-2 overflow-y-auto p-1">
             {visibleProjects.map((project) => {
               const p = progressOf(project);
               const active = project.id === selected?.id;
               const pt = tintMap[project.tint] || tintMap.blue;
               return (
-                <div key={project.id} draggable onDragStart={() => setDraggingProjectId(project.id)} onDragOver={(event) => event.preventDefault()} onDrop={() => { reorderProjectById(draggingProjectId, project.id); setDraggingProjectId(null); }} className={cx("flex items-center gap-2 rounded-[14px] p-2 transition", active ? `bg-white shadow-sm ring-2 ${pt.ring}` : "bg-[#F5F5F7] hover:bg-white")}>
-                  <div className="grid h-8 w-5 shrink-0 cursor-grab place-items-center rounded-full text-[14px] text-[#C7C7CC] active:cursor-grabbing">⋮⋮</div>
-                  <button type="button" onClick={() => setSelectedId(project.id)} className="min-w-0 flex flex-1 items-center gap-3 rounded-[12px] p-1.5 text-left focus:outline-none focus:ring-4 focus:ring-black/10">
-                    <PixelIcon className={cx("h-11 w-11 rounded-xl text-xl", pt.bg)}>{project.icon}</PixelIcon>
+                <div key={project.id} draggable onDragStart={() => setDraggingProjectId(project.id)} onDragOver={(event) => event.preventDefault()} onDrop={() => { reorderProjectById(draggingProjectId, project.id); setDraggingProjectId(null); }} className={cx("relative flex items-start gap-1 rounded-[14px] px-2 py-3 transition", active ? `bg-white shadow-sm ring-2 ${pt.ring}` : "bg-[#F5F5F7] hover:bg-white")}>
+                  <div className="grid h-8 w-3 shrink-0 cursor-grab place-items-center rounded-full text-[14px] text-[#C7C7CC] active:cursor-grabbing">⋮⋮</div>
+                  <button type="button" onClick={() => setSelectedId(project.id)} className="min-w-0 flex flex-1 items-start gap-2 rounded-[12px] p-1 text-left focus:outline-none focus:ring-4 focus:ring-black/10">
+                    <Folder className="mt-1 h-4 w-4 shrink-0 text-[#86868B]" />
                     <div className="min-w-0 flex-1">
-                      <div className="flex items-center gap-2"><div className="truncate text-[15px] font-medium">{project.title}</div>{project.stuck && <PixelBadge tone="red"><CircleAlert className="h-3 w-3" /> {c.rescue}</PixelBadge>}{project.archived && <PixelBadge tone="green"><Archive className="h-3 w-3" /> {c.statusArchived}</PixelBadge>}{project.paused && !project.archived && <PixelBadge tone="neutral"><PauseCircle className="h-3 w-3" /> {c.statusSealed}</PixelBadge>}</div>
-                      <div className="mt-1 flex items-center gap-2 text-[12px] text-[#9A9AA0]"><span className="truncate">{labelFor(lang, "projectCategory", project.category || "个人项目")}</span><span>{c.projectLevel} {project.level}</span><span className="w-8 shrink-0 tabular-nums">{p}%</span><div className="h-1.5 flex-1 overflow-hidden rounded-full bg-[#E5E5EA]"><div className={cx("h-full rounded-full", pt.bar)} style={{ width: `${p}%` }} /></div></div>
-                      <div className="mt-0.5 truncate text-[12px] text-[#9A9AA0]">{project.note || project.status}</div>
+                      <div className="flex flex-wrap items-center gap-2 pr-7"><div className="w-full break-words text-[14px] font-medium leading-5">{project.title}</div>{project.stuck && <PixelBadge tone="red"><CircleAlert className="h-3 w-3" /> {c.rescue}</PixelBadge>}{project.archived && <PixelBadge tone="green"><Archive className="h-3 w-3" /> {c.statusArchived}</PixelBadge>}{project.paused && !project.archived && <PixelBadge tone="neutral"><PauseCircle className="h-3 w-3" /> {c.statusSealed}</PixelBadge>}</div>
+                      <div className="mt-2 flex flex-wrap items-center gap-x-3 gap-y-1 text-[12px] text-[#9A9AA0]"><span className="break-words">{labelFor(lang, "projectCategory", project.category || "个人项目")}</span><span>{c.projectLevel} {project.level}</span><span className="w-8 shrink-0 tabular-nums">{p}%</span><div className="h-1.5 w-full overflow-hidden rounded-full bg-[#E5E5EA]"><div className={cx("h-full rounded-full", pt.bar)} style={{ width: `${p}%` }} /></div></div>
+                      <div className="mt-2 break-words text-[12px] text-[#9A9AA0]">{project.note || project.status}</div>
                     </div>
                   </button>
-                  <button type="button" onClick={() => moveProjectToTrash(project.id)} className="grid h-11 w-11 shrink-0 place-items-center rounded-full text-[#A1A1A6] transition hover:bg-[#F5F5F7] hover:text-[#D93025] focus:outline-none focus:ring-4 focus:ring-black/10"><Trash2 className="h-4 w-4" /></button>
+                  <button type="button" onClick={() => moveProjectToTrash(project.id)} aria-label={lang === "zh" ? "删除项目" : "Delete project"} className="absolute right-1 top-1 grid h-11 w-8 place-items-center rounded-full text-[#A1A1A6] transition hover:bg-[#F5F5F7] hover:text-[#D93025] focus:outline-none focus:ring-4 focus:ring-black/10"><Trash2 className="h-3.5 w-3.5" /></button>
                 </div>
               );
             })}
@@ -1787,10 +1820,10 @@ export default function ADHDQuestBoardPrototype() {
           <button type="button" onClick={() => setTaskModalOpen(true)} className="grid h-11 w-11 shrink-0 place-items-center rounded-full bg-[#1D1D1F] text-white shadow-sm transition hover:bg-black focus:outline-none focus:ring-4 focus:ring-black/10" aria-label="add task"><Plus className="h-5 w-5" /></button>
         </div>
         {selected && orderedTasksOf(selected).length ? (
-          <div className="divide-y divide-black/[0.06]">
+          <div ref={taskListRef} style={{ overflowAnchor: "none" }} className="divide-y divide-black/[0.06]">
             {orderedTasksOf(selected).map((task) => {
               return (
-                <div key={task.id} draggable onDragStart={() => selected && setDraggingTask({ projectId: selected.id, taskId: task.id })} onDragOver={(event) => event.preventDefault()} onDrop={() => { if (selected && draggingTask?.projectId === selected.id) reorderTaskInProject(selected.id, draggingTask.taskId, task.id); setDraggingTask(null); }} className="group flex w-full gap-3 py-4 text-left transition first:pt-0 last:pb-0">
+                <div key={task.id} data-task-id={task.id} draggable onDragStart={() => selected && setDraggingTask({ projectId: selected.id, taskId: task.id })} onDragOver={(event) => event.preventDefault()} onDrop={() => { if (selected && draggingTask?.projectId === selected.id) reorderTaskInProject(selected.id, draggingTask.taskId, task.id); setDraggingTask(null); }} className="group flex w-full gap-3 py-4 text-left transition first:pt-0 last:pb-0">
                   <div className="mt-1 grid h-8 w-5 shrink-0 cursor-grab place-items-center rounded-full text-[14px] text-[#C7C7CC] active:cursor-grabbing">⋮⋮</div>
                   <button type="button" onClick={() => completeTask(selected.id, task.id)} className="mt-1 grid h-11 w-11 shrink-0 place-items-center rounded-full transition focus:outline-none focus:ring-4 focus:ring-black/10" aria-label={c.complete}>
                     <span className={cx("grid h-6 w-6 place-items-center rounded-full border transition", task.done ? "border-[#34C759] bg-[#34C759] text-white" : "border-[#C7C7CC] bg-transparent text-transparent group-hover:border-[#8E8E93] group-hover:text-[#8E8E93]")}>{task.done ? <Check className="h-3.5 w-3.5" /> : <Circle className="h-3 w-3" />}</span>
@@ -1818,13 +1851,7 @@ export default function ADHDQuestBoardPrototype() {
 
   function renderDashboardPage() {
     return (
-      <main className="relative mx-auto max-w-[1180px] px-4 py-5 sm:px-8 sm:py-6 lg:py-3">
-        <header className="mb-3">
-          <div className="max-w-[780px]">
-            <h1 className="text-[34px] font-medium leading-[1.04] tracking-[-0.045em] text-[#1D1D1F] sm:text-[42px]">{c.boardTitle}</h1>
-            <p className="mt-2 text-[14px] leading-6 text-[#86868B] sm:text-[15px]">{c.boardDesc}</p>
-          </div>
-        </header>
+      <main className={pageLayoutClass}><PageIntro title={c.boardTitle} description={c.boardDesc}  />
         <section className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_360px] lg:items-start">
           <div className="space-y-3">
             {renderProjectOverviewCard()}
@@ -1855,10 +1882,10 @@ export default function ADHDQuestBoardPrototype() {
     const { project, task, progress: itemProgress } = item;
     const pt = tintMap[project.tint] || tintMap.blue;
     return (
-      <Card key={project.id} draggable onDragStart={() => setDraggingProjectId(project.id)} onDragOver={(event) => event.preventDefault()} onDrop={() => { reorderProjectById(draggingProjectId, project.id); setDraggingProjectId(null); }} className="flex min-w-0 flex-col p-5">
+      <Card key={project.id} draggable onDragStart={() => setDraggingProjectId(project.id)} onDragOver={(event) => event.preventDefault()} onDrop={() => { reorderProjectById(draggingProjectId, project.id); setDraggingProjectId(null); }} data-ready-task={task.id} style={{ backgroundColor: task.focusMode ? "#FFF8E7" : undefined }} className="flex min-w-0 flex-col p-5 transition-colors duration-200">
         <div className="mb-3 flex min-w-0 items-center gap-3">
           <span className="cursor-grab text-[#C7C7CC]" aria-hidden="true">⋮⋮</span>
-          <Folder className="h-5 w-5 shrink-0 text-[#007AFF]" />
+          <span className="grid h-5 w-5 shrink-0 place-items-center" title={task.focusMode ? c.fiveMinuteLabel : c.projectLabel}>{task.focusMode ? <PlayCircle className="h-5 w-5 text-[#8A6400]" /> : <Folder className="h-5 w-5 text-[#007AFF]" />}</span>
           <span className="min-w-0 break-words text-[13px] text-[#6E6E73]">{project.title}</span>
         </div>
         <div className="mb-3 flex flex-wrap gap-2">
@@ -1867,13 +1894,7 @@ export default function ADHDQuestBoardPrototype() {
           <PixelBadge tone="neutral">{labelFor(lang, "taskType", task.type)}</PixelBadge>
         </div>
         <h2 className="break-words text-[18px] font-medium leading-6">{task.title}</h2>
-        <p className="mt-2 whitespace-pre-wrap break-words text-[13px] leading-5 text-[#6E6E73]">{task.action}</p>
-        {task.focusMode && (
-          <div className="mt-3 rounded-[12px] bg-[#FFF8E7] p-3">
-            <div className="mb-1 text-[12px] text-[#8A6400]">{c.fiveMinuteLabel}</div>
-            <textarea aria-label={c.fiveMinuteLabel} data-autosize="true" value={task.focusAction || ""} onChange={(event) => { resizeTextarea(event.currentTarget); updateTaskFocusAction(project.id, task.id, event.target.value); }} rows={2} className="w-full resize-none overflow-hidden rounded-[8px] bg-white/70 px-2 py-2 text-[13px] leading-5 outline-none focus:ring-2 focus:ring-[#FFD60A]/25" />
-          </div>
-        )}
+        <textarea aria-label={task.focusMode ? c.fiveMinuteLabel : c.nodeDescPlaceholder} readOnly={!task.focusMode} value={task.focusMode ? task.focusAction || "" : task.action || ""} onChange={(event) => updateTaskFocusAction(project.id, task.id, event.target.value)} className="mt-2 h-[60px] w-full resize-none overflow-y-auto border-0 bg-transparent p-0 text-[13px] leading-5 text-[#6E6E73] outline-none focus:ring-2 focus:ring-[#FFD60A]/25" />
         <div className="mt-auto pt-4">
           <div className="mb-3 flex items-center gap-3">
             <span className="text-[12px] tabular-nums text-[#86868B]">{itemProgress}%</span>
@@ -1952,11 +1973,7 @@ export default function ADHDQuestBoardPrototype() {
 
   function renderNowPage() {
     return (
-      <main className="relative mx-auto max-w-[1320px] px-4 py-6 sm:px-8 sm:py-8">
-        <header className="mb-5 max-w-2xl">
-          <h1 className="text-[36px] font-medium leading-[1.05] tracking-[-0.045em] text-[#1D1D1F] sm:text-[54px]">{c.nowTitle}</h1>
-          <p className="mt-5 max-w-xl text-[15px] leading-6 text-[#86868B] sm:text-[16px]">{c.nowDesc}</p>
-        </header>
+      <main className={pageLayoutClass}><PageIntro title={c.nowTitle} description={c.nowDesc}  />
 
         <div className="mb-6 grid gap-4 lg:grid-cols-[minmax(0,1fr)_280px] lg:items-stretch">
           <Card className="p-4 sm:p-5">
@@ -2093,13 +2110,13 @@ export default function ADHDQuestBoardPrototype() {
 
   if (activePage === "ideas") {
     return appShell(
-      <main className="relative mx-auto max-w-5xl px-5 py-12 sm:px-8 lg:py-16"><header className="mb-10 flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between"><div><h1 className="text-[36px] font-medium leading-[1.05] tracking-[-0.045em] sm:text-[54px]">{c.ideaTitle}</h1><p className="mt-5 max-w-xl text-[15px] leading-6 text-[#86868B] sm:text-[16px]">{c.ideaDesc}</p></div><PixelBadge tone="gold">{activeIdeas.length} ideas</PixelBadge></header><Card className="mb-8 p-5 sm:p-6"><div className="grid gap-3 sm:grid-cols-[1fr_160px_auto] sm:items-end"><div><div className="mb-1 text-[13px] font-medium text-[#86868B]">{c.quickIdea}</div><input value={thought} onChange={(event) => setThought(event.target.value)} onKeyDown={(event) => event.key === "Enter" && addThought()} placeholder={lang === "zh" ? "突然想到什么，先丢进这里..." : "Drop a quick thought here..."} className="min-h-12 w-full rounded-[14px] border-0 bg-[#F5F5F7] px-4 text-[15px] outline-none transition placeholder:text-[#A1A1A6] focus:bg-white focus:ring-4 focus:ring-black/10" /></div><select value={newIdeaCategory} onChange={(event) => setNewIdeaCategory(event.target.value)} className="min-h-12 rounded-[14px] border-0 bg-[#F5F5F7] px-4 text-[14px] font-medium text-[#6E6E73] outline-none focus:bg-white focus:ring-4 focus:ring-black/10">{IDEA_CATEGORIES.filter((category) => category !== "全部").map((category) => <option key={category} value={category}>{labelFor(lang, "ideaCategory", category)}</option>)}</select><Button onClick={addThought}><Plus className="h-4 w-4" /> {c.saveIdea}</Button></div></Card><Card className="p-5 sm:p-6"><div className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between"><div><h2 className="text-[20px] font-medium tracking-[-0.02em]">{c.allIdeas}</h2><p className="mt-1 text-[13px] text-[#86868B]">{c.ideasHint}</p></div><div className="flex flex-col gap-2 sm:flex-row"><div className="flex rounded-full bg-[#F5F5F7] p-1"><button type="button" onClick={() => setIdeaView("list")} className={cx("rounded-full px-3 py-2 text-[13px] font-medium transition", ideaView === "list" ? "bg-white text-[#1D1D1F] shadow-sm" : "text-[#86868B]")}>{c.ideaViewList}</button><button type="button" onClick={() => setIdeaView("bubble")} className={cx("rounded-full px-3 py-2 text-[13px] font-medium transition", ideaView === "bubble" ? "bg-white text-[#1D1D1F] shadow-sm" : "text-[#86868B]")}>{c.ideaViewBubble}</button></div><select value={ideaCategoryFilter} onChange={(event) => setIdeaCategoryFilter(event.target.value)} className="min-h-11 rounded-full border-0 bg-[#F5F5F7] px-4 text-[14px] font-medium text-[#6E6E73] outline-none focus:bg-white focus:ring-4 focus:ring-black/10">{IDEA_CATEGORIES.map((category) => <option key={category} value={category}>{labelFor(lang, "ideaCategory", category)}</option>)}</select><div className="relative w-full sm:w-64"><Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-[#A1A1A6]" /><input value={ideaSearch} onChange={(event) => setIdeaSearch(event.target.value)} placeholder={c.searchIdeas} className="min-h-11 w-full rounded-full border-0 bg-[#F5F5F7] pl-9 pr-4 text-[14px] outline-none transition placeholder:text-[#A1A1A6] focus:bg-white focus:ring-4 focus:ring-black/10" /></div></div></div>{ideaView === "bubble" ? <div className="flex flex-wrap gap-3">{filteredIdeas.map((idea) => <div key={idea.id} className="group inline-flex items-center gap-2 rounded-full bg-[#F5F5F7] px-4 py-2 text-[13px] text-[#3A3A3C] ring-1 ring-black/[0.04]"><span>{idea.text}</span><button type="button" onClick={() => deleteIdea(idea.id)} className="grid h-5 w-5 place-items-center rounded-full text-[#A1A1A6] opacity-0 transition group-hover:opacity-100 hover:bg-white hover:text-[#D93025]" aria-label="delete idea bubble">×</button></div>)}</div> : renderIdeaList(true)}</Card></main>
+      <main className={pageLayoutClass}><PageIntro title={c.ideaTitle} description={c.ideaDesc} badge={<PixelBadge tone="gold">{activeIdeas.length} ideas</PixelBadge>} /><Card className="mb-8 p-5 sm:p-6"><div className="grid gap-3 sm:grid-cols-[1fr_160px_auto] sm:items-end"><div><div className="mb-1 text-[13px] font-medium text-[#86868B]">{c.quickIdea}</div><input value={thought} onChange={(event) => setThought(event.target.value)} onKeyDown={(event) => event.key === "Enter" && addThought()} placeholder={lang === "zh" ? "突然想到什么，先丢进这里..." : "Drop a quick thought here..."} className="min-h-12 w-full rounded-[14px] border-0 bg-[#F5F5F7] px-4 text-[15px] outline-none transition placeholder:text-[#A1A1A6] focus:bg-white focus:ring-4 focus:ring-black/10" /></div><select value={newIdeaCategory} onChange={(event) => setNewIdeaCategory(event.target.value)} className="min-h-12 rounded-[14px] border-0 bg-[#F5F5F7] px-4 text-[14px] font-medium text-[#6E6E73] outline-none focus:bg-white focus:ring-4 focus:ring-black/10">{IDEA_CATEGORIES.filter((category) => category !== "全部").map((category) => <option key={category} value={category}>{labelFor(lang, "ideaCategory", category)}</option>)}</select><Button onClick={addThought}><Plus className="h-4 w-4" /> {c.saveIdea}</Button></div></Card><Card className="p-5 sm:p-6"><div className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between"><div><h2 className="text-[20px] font-medium tracking-[-0.02em]">{c.allIdeas}</h2><p className="mt-1 text-[13px] text-[#86868B]">{c.ideasHint}</p></div><div className="flex flex-col gap-2 sm:flex-row"><div className="flex rounded-full bg-[#F5F5F7] p-1"><button type="button" onClick={() => setIdeaView("list")} className={cx("rounded-full px-3 py-2 text-[13px] font-medium transition", ideaView === "list" ? "bg-white text-[#1D1D1F] shadow-sm" : "text-[#86868B]")}>{c.ideaViewList}</button><button type="button" onClick={() => setIdeaView("bubble")} className={cx("rounded-full px-3 py-2 text-[13px] font-medium transition", ideaView === "bubble" ? "bg-white text-[#1D1D1F] shadow-sm" : "text-[#86868B]")}>{c.ideaViewBubble}</button></div><select value={ideaCategoryFilter} onChange={(event) => setIdeaCategoryFilter(event.target.value)} className="min-h-11 rounded-full border-0 bg-[#F5F5F7] px-4 text-[14px] font-medium text-[#6E6E73] outline-none focus:bg-white focus:ring-4 focus:ring-black/10">{IDEA_CATEGORIES.map((category) => <option key={category} value={category}>{labelFor(lang, "ideaCategory", category)}</option>)}</select><div className="relative w-full sm:w-64"><Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-[#A1A1A6]" /><input value={ideaSearch} onChange={(event) => setIdeaSearch(event.target.value)} placeholder={c.searchIdeas} className="min-h-11 w-full rounded-full border-0 bg-[#F5F5F7] pl-9 pr-4 text-[14px] outline-none transition placeholder:text-[#A1A1A6] focus:bg-white focus:ring-4 focus:ring-black/10" /></div></div></div>{ideaView === "bubble" ? <div className="flex flex-wrap gap-3">{filteredIdeas.map((idea) => <div key={idea.id} className="group inline-flex items-center gap-2 rounded-full bg-[#F5F5F7] px-4 py-2 text-[13px] text-[#3A3A3C] ring-1 ring-black/[0.04]"><span>{idea.text}</span><button type="button" onClick={() => deleteIdea(idea.id)} className="grid h-5 w-5 place-items-center rounded-full text-[#A1A1A6] opacity-0 transition group-hover:opacity-100 hover:bg-white hover:text-[#D93025]" aria-label="delete idea bubble">×</button></div>)}</div> : renderIdeaList(true)}</Card></main>
     );
   }
 
   if (activePage === "trash") {
     return appShell(
-      <main className="relative mx-auto max-w-4xl px-5 py-12 sm:px-8 lg:py-16"><header className="mb-10 flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between"><div><h1 className="text-[36px] font-medium leading-[1.05] tracking-[-0.045em] sm:text-[54px]">{c.trashTitle}</h1><p className="mt-5 max-w-xl text-[15px] leading-6 text-[#86868B] sm:text-[16px]">{c.trashDesc}</p></div><PixelBadge tone="red">{trashCount} items</PixelBadge></header><div className="space-y-8"><Card className="p-5 sm:p-6"><div className="mb-5 flex items-center justify-between"><div><h2 className="text-[20px] font-medium tracking-[-0.02em]">{c.deletedIdeas}</h2><p className="mt-1 text-[13px] text-[#86868B]">{c.restoreIdeaHint}</p></div><PixelBadge tone="neutral">{trashIdeas.length}</PixelBadge></div>{trashIdeas.length ? <div className="space-y-3">{trashIdeas.map((idea) => <div key={idea.id} className="rounded-[16px] bg-[#F5F5F7] p-4"><div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between"><div><div className="text-[15px] font-semibold">{idea.text}</div><div className="mt-1 text-[12px] text-[#86868B]">{c.remaining} {daysLeftInTrash(idea)} {c.days} · {c.deletedAt} {formatTime(idea.deletedAt)}</div></div><div className="flex gap-2"><Button onClick={() => restoreIdea(idea.id)} variant="green"><RotateCcw className="h-4 w-4" /> {c.restore}</Button><Button onClick={() => permanentlyDeleteIdea(idea.id)} variant="light"><Trash2 className="h-4 w-4" /> {c.permanentDelete}</Button></div></div></div>)}</div> : <EmptyState>{c.noTrashIdeas}</EmptyState>}</Card><Card className="p-5 sm:p-6"><div className="mb-5 flex items-center justify-between"><div><h2 className="text-[20px] font-medium tracking-[-0.02em]">{c.deletedProjects}</h2><p className="mt-1 text-[13px] text-[#86868B]">{c.restoreProjectHint}</p></div><PixelBadge tone="neutral">{trashProjects.length}</PixelBadge></div>{trashProjects.length ? <div className="space-y-3">{trashProjects.map((project) => <div key={project.id} className="rounded-[16px] bg-[#F5F5F7] p-4"><div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between"><div className="text-[15px] font-semibold">{project.title}</div><div className="flex gap-2"><Button onClick={() => restoreProject(project.id)} variant="green"><RotateCcw className="h-4 w-4" /> {c.restore}</Button><Button onClick={() => permanentlyDeleteProject(project.id)} variant="light"><Trash2 className="h-4 w-4" /> {c.permanentDelete}</Button></div></div></div>)}</div> : <EmptyState>{c.noTrashProjects}</EmptyState>}</Card><Card className="p-5 sm:p-6"><div className="mb-5 flex items-center justify-between"><div><h2 className="text-[20px] font-medium tracking-[-0.02em]">{c.deletedTasks}</h2><p className="mt-1 text-[13px] text-[#86868B]">{c.restoreTaskHint}</p></div><PixelBadge tone="neutral">{trashTasks.length}</PixelBadge></div>{trashTasks.length ? <div className="space-y-3">{trashTasks.map(({ project, task }) => <div key={`${project.id}-${task.id}`} className="rounded-[16px] bg-[#F5F5F7] p-4"><div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between"><div><PixelBadge tone="blue">{project.title}</PixelBadge><div className="mt-2 text-[15px] font-semibold">{task.title}</div></div><div className="flex gap-2"><Button onClick={() => restoreTask(project.id, task.id)} variant="green"><RotateCcw className="h-4 w-4" /> {c.restore}</Button><Button onClick={() => permanentlyDeleteTask(project.id, task.id)} variant="light"><Trash2 className="h-4 w-4" /> {c.permanentDelete}</Button></div></div></div>)}</div> : <EmptyState>{c.noTrashTasks}</EmptyState>}</Card></div></main>
+      <main className={pageLayoutClass}><PageIntro title={c.trashTitle} description={c.trashDesc} badge={<PixelBadge tone="red">{trashCount} items</PixelBadge>} /><div className="space-y-8"><Card className="p-5 sm:p-6"><div className="mb-5 flex items-center justify-between"><div><h2 className="text-[20px] font-medium tracking-[-0.02em]">{c.deletedIdeas}</h2><p className="mt-1 text-[13px] text-[#86868B]">{c.restoreIdeaHint}</p></div><PixelBadge tone="neutral">{trashIdeas.length}</PixelBadge></div>{trashIdeas.length ? <div className="space-y-3">{trashIdeas.map((idea) => <div key={idea.id} className="rounded-[16px] bg-[#F5F5F7] p-4"><div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between"><div><div className="text-[15px] font-semibold">{idea.text}</div><div className="mt-1 text-[12px] text-[#86868B]">{c.remaining} {daysLeftInTrash(idea)} {c.days} · {c.deletedAt} {formatTime(idea.deletedAt)}</div></div><div className="flex gap-2"><Button onClick={() => restoreIdea(idea.id)} variant="green"><RotateCcw className="h-4 w-4" /> {c.restore}</Button><Button onClick={() => permanentlyDeleteIdea(idea.id)} variant="light"><Trash2 className="h-4 w-4" /> {c.permanentDelete}</Button></div></div></div>)}</div> : <EmptyState>{c.noTrashIdeas}</EmptyState>}</Card><Card className="p-5 sm:p-6"><div className="mb-5 flex items-center justify-between"><div><h2 className="text-[20px] font-medium tracking-[-0.02em]">{c.deletedProjects}</h2><p className="mt-1 text-[13px] text-[#86868B]">{c.restoreProjectHint}</p></div><PixelBadge tone="neutral">{trashProjects.length}</PixelBadge></div>{trashProjects.length ? <div className="space-y-3">{trashProjects.map((project) => <div key={project.id} className="rounded-[16px] bg-[#F5F5F7] p-4"><div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between"><div className="text-[15px] font-semibold">{project.title}</div><div className="flex gap-2"><Button onClick={() => restoreProject(project.id)} variant="green"><RotateCcw className="h-4 w-4" /> {c.restore}</Button><Button onClick={() => permanentlyDeleteProject(project.id)} variant="light"><Trash2 className="h-4 w-4" /> {c.permanentDelete}</Button></div></div></div>)}</div> : <EmptyState>{c.noTrashProjects}</EmptyState>}</Card><Card className="p-5 sm:p-6"><div className="mb-5 flex items-center justify-between"><div><h2 className="text-[20px] font-medium tracking-[-0.02em]">{c.deletedTasks}</h2><p className="mt-1 text-[13px] text-[#86868B]">{c.restoreTaskHint}</p></div><PixelBadge tone="neutral">{trashTasks.length}</PixelBadge></div>{trashTasks.length ? <div className="space-y-3">{trashTasks.map(({ project, task }) => <div key={`${project.id}-${task.id}`} className="rounded-[16px] bg-[#F5F5F7] p-4"><div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between"><div><PixelBadge tone="blue">{project.title}</PixelBadge><div className="mt-2 text-[15px] font-semibold">{task.title}</div></div><div className="flex gap-2"><Button onClick={() => restoreTask(project.id, task.id)} variant="green"><RotateCcw className="h-4 w-4" /> {c.restore}</Button><Button onClick={() => permanentlyDeleteTask(project.id, task.id)} variant="light"><Trash2 className="h-4 w-4" /> {c.permanentDelete}</Button></div></div></div>)}</div> : <EmptyState>{c.noTrashTasks}</EmptyState>}</Card></div></main>
     );
   }
 
